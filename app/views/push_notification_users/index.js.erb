@@ -1,0 +1,2 @@
+$('.pagination_container#pn_users_container .pagination-data').html('<%= j render "push_notification_users/index", pn_users: @push_notification_users, product: @product, platform: @platform, filters: @filters, page: @page, per_page: @per_page %>').fadeIn(400);
+hidePaginationLoader($('.pagination_container#pn_users_container'));

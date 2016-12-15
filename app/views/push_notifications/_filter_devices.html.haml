@@ -1,0 +1,25 @@
+- models = models
+- model_filters = model_filters
+
+
+.mdl-shadow--2dp{style:'width: 98%;'}
+  .png-alert-cards
+    .title.dark-gray
+      %i.material-icons.icon
+        = 'devices'
+      = t('.devise_models')
+    .gray
+      - if !models.nil? && models.size > 0
+        .gray{style: 'padding:20px;height:200px;overflow-y: scroll;'}
+          - models.each do |model|
+            - is_checked = model_filters.include? model[0]
+            %label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect.mdl-switch--accent{for: 'model_'+model[0].to_s}
+              %span.mdl-switch__label
+                = model[1] + " (" +  model[2] + ")"
+              %input.mdl-switch__input.model-filters{type: 'checkbox', name:model[0],
+              checked: is_checked, id: 'model_'+model[0].to_s}
+          %br
+      - else
+        .gray{style: 'padding:20px;height:50px;'}
+          = t(".no_devices_found")
+      %br

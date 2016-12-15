@@ -1,0 +1,27 @@
+- name = ''
+- description = ''
+- if @campaign.present?
+  - name = @campaign['name']
+  - description = @campaign['description']
+
+.col-md-11{style: 'height:100%'}
+  .row.col-md-offset-1{id: "create_campaign"}
+    .col-md-10
+      %div{id: :png_rowalerts}
+  .row.mdl-block-gap-30
+  .row.col-md-offset-1{id: "create_campaign"}
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+      %input.mdl-textfield__input{type: :text, id: :name, name: :name, value: name}
+      %label.mdl-textfield__label{for: :name}
+        = t('push_notifications.campaign_name')
+  .row.col-md-offset-1{id: "create_campaign"}
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+      %textarea.mdl-textfield__input{type: :text, rows: '5', id: :description, name: :description,
+                                     value: description}
+        = description
+      %label.mdl-textfield__label{for: :description}
+        = t('push_notifications.campaign_description')
+  .row.col-md-offset-1{id: "create_campaign"}
+    %button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{id: 'btnSaveCampaign',
+      name: 'btnSaveCampaign', :type => "submit"}
+      = t('push_notifications.index.create_content')

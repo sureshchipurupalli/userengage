@@ -1,0 +1,2 @@
+$('#group_notifications_container .pagination-data').html('<%= j render "push_notification_groups/group_notifications", group: @push_notification_group, group_notifications: @group_notifications, product: @product, page: @page, per_page: @per_page %>').fadeIn(400);
+hidePaginationLoader($('.pagination_container#group_notifications_container'));

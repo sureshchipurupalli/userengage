@@ -1,0 +1,18 @@
+%html
+  %body
+    %table{style: "cellspacing:20px;cellpadding:20px;border-spacing: 20px;"}
+      %tr
+        %td
+          = 'Hi!'
+      %tr
+        %td
+          = 'You are invited by ' + @org_name + ' to join UserEngage.'
+      %tr
+        %td
+          %a{href: new_user_registration_url + "?email=" + @email.to_s}
+            = " click here to register "
+      %tr
+        %td
+          = "Thank you"
+          %br
+          = "Userengage Team"

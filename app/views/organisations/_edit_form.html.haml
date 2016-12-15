@@ -1,0 +1,128 @@
+.page-content{id: "updateorg"}
+  = render 'shared/page_heading', page_title: t('.page_title'), page_description: t('.page_description')
+  .row.mdl-block-gap
+  .row
+    .col-md-3
+    .col-md-6
+      .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp{style: 'width: 100%;'}
+        .mdl-card__title
+          .mdl-card__title-text
+            = t('.create_org')
+        .mdl-card__actions.mdl-card--border
+        .mdl-card__supporting-text{style: 'width: 100%;'}
+          %div{id: "org_creation_errors"}
+          %div{id: "create_org"}
+            =form_for @org, :html => {multipart: :true } do |f|
+              .row
+                .col-md-12
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %input.mdl-textfield__input{type: :text, id: "organisation[name]", name: "organisation[name]", for: :name,
+                                                value: organisation.name,
+                                                autofocus: true}
+                    %label.mdl-textfield__label{for: :name}
+                      = t('name')
+              .row
+                .col-md-12
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %textarea.mdl-textfield__input{type: :text, rows: '5', id: "organisation[description]", name: "organisation[description]",
+                                                     for: :description,  value: organisation.description}
+                      = organisation.description
+                    %label.mdl-textfield__label{for: :description}
+                      = t('desc')
+              - if @timezones.present? && @timezones.size > 0
+                .row
+                  .col-md-12
+                    %i.fa.fa-clock-o.fa-2x
+                      %select.user_timezones_picker{"data-live-search" => "true",
+                                                    id: "user_timezones",
+                                                    name: "user_timezones",
+                                                    style: "width:100%"}
+                        - @timezones.each do |timezone|
+                          %option{:value => timezone,  :selected => @selected_timezone == timezone}
+                            = timezone
+                      %input{type: :hidden, id: :hdftimezone, name: :hdftimezone}
+              .row
+                %br
+              .row
+                .col-md-10
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %input.mdl-textfield__input{type: :text, id: "org_clientid",
+                                                name: "org_clientid", for: :clientid,
+                                                value: organisation.clientid,
+                                                readonly: true,
+                                                autofocus: true}
+                    %label.mdl-textfield__label{for: :org_clientid}
+                      = t('clientid')
+                .col-md-2
+                  %button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored{title: 'copy to clipboard', id: 'btnOrgKeyCopy'}
+                    %i.fa.fa-clipboard
+                  %span.mdl-tooltip.mdl-tooltip--top{for: :btnOrgKeyCopy}
+                    = t('copy_to_clipboard')
+              .row
+                .col-md-12
+                  .pull-left
+                    %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{ :type => "submit",
+                      class: "btn btn-success",
+                      id: "btnUpdateOrg", value: t("views.submit")}
+                  .pull-right
+                    %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                      id: "btnCancelOrg", value: t('cancel') }
+              .row
+                = ''
+
+:javascript
+  $(document).ready(function(){
+    $('.edit_organisation').on('submit', submitOrgForm)
+    $('#btnOrgKeyCopy').on('click',copytoclipboard)
+    $('#btnCancelOrg').on('click',function(){
+      var root_url =  "#{root_path}";
+      window.location = root_url;
+    });
+    $("#user_timezones").on("change",change_timezone);
+    change_timezone();
+  });
+
+  function submitOrgForm(e){
+    e.preventDefault();
+    var actionurl = e.currentTarget.action;
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+      url: actionurl,
+      type: 'put',
+      dataType: 'script',
+      contentType: false,
+      processData: false,
+      cache: false,
+      data: formData,
+      success: ''
+    });
+  }
+
+  function copytoclipboard(e)
+  {
+    e.preventDefault();
+    var controltocopy = $('#org_clientid');
+    controltocopy.select();
+    try {
+      var success = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+       console.log('Copying text command was ' + msg);
+    }
+    catch(err)
+    {
+      console.log('unable to copy');
+    }
+  }
+
+  $('.user_timezones_picker').selectpicker({
+    size: 6
+  });
+
+  function change_timezone()
+  {
+    var time_zone = $(this).val();
+    $("#hdftimezone").val(time_zone)
+  }
+
+

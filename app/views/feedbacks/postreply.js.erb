@@ -1,0 +1,9 @@
+
+//rowalerts
+
+<% if @errors.present? && @errors.size > 0  %>
+$("#rowalerts").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+$("#rowalerts").html("<%= j render 'shared/success', display_text: "Replied to the feedback successfully" %>");
+$(".feedback_replies").html("<%= j render "feedbacks/replies", replies: @replies %>");
+<% end %>

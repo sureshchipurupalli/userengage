@@ -1,0 +1,8 @@
+!!! 5
+%html
+  %head
+    =render 'layouts/header'
+  %body{:id => "home", "data-no-turbolink" => "true"}
+    =render 'layouts/top_bar'
+    .container
+      = content_for?(:content) ? yield(:content) : yield

@@ -1,0 +1,49 @@
+-selected_org = selected_org
+%ul.nav.navmenu-nav{"id"=>"accounts_side_menu"}
+  %li
+    %a.mdl-navigation__link{href:"/"}
+      %i.fa.fa-cog
+        = "Apps"
+  %li
+    %a.mdl-navigation__link{href:edit_user_registration_path}
+      %i.fa.fa-tachometer
+        ="User Profile"
+  %li
+    %a.mdl-navigation__link{href: edit_organisation_path(selected_org)}
+      %i.fa.fa-cog
+        = "Settings"
+  %li
+    %a.mdl-navigation__link{href:organisation_users_path}
+      %i.fa.fa-users
+        ="Team"
+  %li
+    %a.mdl-navigation__link{href:"#", dataurl: "#"}
+      %i.fa.fa-credit-card
+        ="Billing"
+  %li
+    %a.mdl-navigation__link{href:"#", dataurl: "#"}
+      %i.fa.fa-file-text
+        ="Reports"
+  -#%li
+  -#  %a.mdl-navigation__link{href: '#', dataurl: new_app_path}
+  -#    %i.fa.fa-cog
+  -#      = "Add App"
+
+:javascript
+  $(document).ready(function(){
+    $('#accounts_side_menu li a').on('click',navigate_to)
+  });
+
+  function navigate_to(e){
+    var url = "" + $(this).attr('dataurl');
+    var href = "" + $(this).attr('href');;
+    var orgid = $('#hdf_selected_org_id').val();
+
+    if (href != '#') {
+      return true;
+    }
+    else {
+      e.preventDefault();
+      $.get(url,'','','script');
+    }
+  }

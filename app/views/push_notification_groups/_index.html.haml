@@ -1,0 +1,84 @@
+
+.pn-groups
+-if pn_groups.present?
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_groups.index.table.groups.title')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_groups.index.table.groups.body')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_groups.index.table.groups.scheduled_at')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_groups.index.table.groups.processed_status')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_groups.index.table.groups.date')}"
+          %th.mdl-data-table__cell--non-numeric
+            = t('push_notification_groups.index.table.groups.edit')
+          %th.mdl-data-table__cell--non-numeric
+            = t('push_notification_groups.index.table.groups.delete')
+      - pn_groups.each do |group|
+        -if  group.present? && group.body.present?
+          - body = group.body.length > 50 ? group.body[0,50] + '...' : group.body
+        -else
+          - body = ''
+        %tr
+          %td.mdl-data-table__cell--non-numeric
+            - if group.processed_status == 1
+              = "#{group.title}"
+            -else
+              %a.link{href: edit_push_notification_group_path(group.id, :app_id => app.id)}
+                = "#{group.title}"
+            - status =   group.processed_status == 1 ? "Pending" : "Completed"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{group.body}"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{group.scheduled_at}"
+          %td.mdl-data-table__cell--non-numeric
+            = status
+          %td.mdl-data-table__cell--non-numeric
+            =timeago_tag group.created_at, :nojs => true, :limit => 10.days.ago
+          %td.mdl-data-table__cell--non-numeric
+            %i.fa.fa-pencil
+          %td.mdl-data-table__cell--non-numeric
+            - if group.processed_status == 1
+              %a.delete_campaign.link{id: 'delete_campaign_'+group.id.to_s,
+                      url: push_notification_group_path(group.id, :app_id => app.id)}
+                %i.fa.fa-trash-o
+            - else
+              %i.fa.fa-trash-o
+-else
+  .empty-content
+    ="#{t('push_notification_groups.index.no_notification_groups')}"
+-if pn_groups.present? && pn_groups.size > 0
+  = render 'shared/pagination', collection: pn_groups, entry_name: 'Campaigns'
+
+
+:javascript
+   $(document).ready(function(){
+    $('.delete_campaign').on('click', delete_campaign);
+  });
+
+  function delete_campaign(e)
+  {
+    e.preventDefault();
+
+    var confirm_delete = confirm('Are you sure you want to delete this campaign?');
+    if (confirm_delete)
+    {
+      var actionurl = $(this).attr("url");
+      $.ajax({
+        url: actionurl,
+        type: 'delete',
+        dataType: 'script',
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: '',
+        success: ''
+      });
+    }
+
+  }

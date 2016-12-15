@@ -1,0 +1,25 @@
+- errors = errors
+#gModal{:class => "modal fade", :role => "dialog"}
+  %div{:class => "modal-dialog"}
+    %div{:class => "modal-content"}
+      %div{:class => "modal-header"}
+        %button{:type => "button", :class => "close", 'data-dismiss' => "modal", 'aria-label' => "Close"}
+          %span{'aria-hidden' => "true"}
+            &times;
+        %h4{:class => "modal-title"}
+      %div{:class => "modal-body"}
+        %ul#error
+        #content
+
+:javascript
+  function showModel(title)
+  {
+    $("#gModal .modal-title").html(title);
+    $("#gModal").modal({backdrop: 'static', keyboard: false});
+    $("#gModal").modal('show');
+  }
+  function hideModel()
+  {
+    $("#gModal").modal('hide');
+  }
+

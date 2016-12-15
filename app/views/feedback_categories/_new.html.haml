@@ -1,0 +1,44 @@
+.row
+  .mdl-shadow--2dp{style: "width:100%"}
+    .col-md-12
+      .col-md-4
+      .col-md-8
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title
+            .mdl-card__title-text
+              = t('.create_feedback_category')
+          .mdl-card__actions.mdl-card--border
+            .row
+              %div{id: "feedback_category_creation_errors"}
+            .row
+              .col-md-11
+                %div.form-horizontal
+                  =form_for feedback_category, remote: true do |f|
+                    %div
+                    .row.col-md-offset-1{id: "feedback_category_name"}
+                      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                        %input.mdl-textfield__input{type: :text, id: "feedback_category[name]", name: "feedback_category[name]", for: :name,
+                                                                    value: feedback_category.name,
+                                                                    autofocus: true}
+                        %label.mdl-textfield__label{for: :name}
+                          = t('name')
+                    .row.col-md-offset-1{id: "feedback_category_desc"}
+                      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                        %textarea.mdl-textfield__input{type: :text, rows: '5', id: "feedback_category[description]", name: "feedback_category[description]",
+                                                                       for: :description,  value: feedback_category.description}
+                          = feedback_category.description
+                        %label.mdl-textfield__label{for: :description}
+                          = t('desc')
+                    .row.col-md-offset-1{id: "feedback_category_submit"}
+                      .pull-left
+                        %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{ :type => "submit",
+                                          class: "btn btn-success",
+                                          id: "btnCreateApp" }
+                      .pull-right
+                        %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                                          id: "btnCancelFeedbackCategory", value: t('cancel') }
+                    .row
+                      = " x"
+                    %input{type: "hidden", id: "feedback_category[app_id]",
+                           name: "feedback_category[app_id]", value: feedback_category.app_id}
+                    %input{type: "hidden", id: "app_id",name: "app_id", value: app_id}

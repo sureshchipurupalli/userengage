@@ -1,0 +1,47 @@
+.fluid-container
+  =form_tag '#', :method => :get, :remote => true, :id =>'pagination_crash_reports_form' do
+    .crash-report.form-filter-container
+      -#.app-versions
+      -#  -if filters[:app_versions].present?
+      -#    -filters[:app_versions].each do |version|
+      -#      %input{type: 'hidden', name: 'app_versions[]', value: version}
+      -#.os-versions
+      -#  -if filters[:os_versions].present?
+      -#    -filters[:os_versions].each do |os|
+      -#      %input{type: 'hidden', name: 'os_versions[]', value: os}
+    -if crashes.present?
+      %table.table.table-striped.pagination_container_table.global-table
+        %thead
+          %tr
+            %th
+              = "#{t('crash_reports.crash_reports.table.crashed_at')}"
+            %th
+              = "#{t('crash_reports.crash_reports.table.version')}"
+            %th
+              = "#{t('crash_reports.crash_reports.table.os_version')}"
+            %th
+              = "#{t('crash_reports.crash_reports.table.device')}"
+            %th
+              = "#{t('crash_reports.crash_reports.table.report_at')}"
+        - crashes.each do |crash|
+          %tr
+            %td
+              =timeago_tag crash.crash_time
+            %td
+              = "#{crash.version_code} ( #{crash.version_name} )"
+            %td
+              = "#{crash.os_version}"
+            %td
+              = "#{crash.mobile_model ? crash.mobile_model.model : '-'}"
+            %td
+              = "#{crash.created_at}"
+    -else
+      .empty-content
+        ="#{t('crash_reports.index.no_crashes')}"
+
+-if crashes.present?
+  .row
+    .col-sm-2{:id => :tot_testcase_count}
+      -#="#{t('testcases.index.total_testcases')} : #{0}"
+    .col-sm-8.col-sm-offset-2.text-right.show-pagination-loader{:id => 'pagination'}
+      #{paginate crashes, remote: true}

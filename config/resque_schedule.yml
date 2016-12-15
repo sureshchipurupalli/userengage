@@ -1,0 +1,13 @@
+hello_world_cron_job:
+  every: 10s
+  queue: hello_world_queue
+  class: HelloWorld
+  args:
+  description: print datetime
+
+create_campaigns_cron_job:
+  every: 10s
+  queue: campaign
+  class: ProcessCampaign
+  args:
+  description: Generate Push Notifications for the campaign

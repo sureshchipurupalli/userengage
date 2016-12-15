@@ -1,0 +1,73 @@
+- app_users = app_users
+
+#app_user_status
+
+-if app_users.present? && app_users.size > 0
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('.id')
+          %th.mdl-data-table__cell--non-numeric
+            = t('first_name')
+          %th.mdl-data-table__cell--non-numeric
+            = t('last_name')
+          %th.mdl-data-table__cell--non-numeric
+            = t('email')
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('role')
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('edit')
+          %th.mdl-data-table__cell--non-numeric
+            = t('delete')
+
+      - app_users.each do |app_user|
+        %tr
+          - role = app_user.role_id != 2 ? "View Only":"Admin"
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  = app_user.id
+          %td.mdl-data-table__cell--non-numeric
+            = app_user.first_name
+          %td.mdl-data-table__cell--non-numeric
+            = app_user.last_name
+          %td.mdl-data-table__cell--non-numeric
+            = app_user.email
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  = role
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  %a{href: "#"}
+          -#    = t('edit')
+          %td.mdl-data-table__cell--non-numeric
+            .delete_app_user
+              %a{name: "delete_app_user", id: "delete_app_user",
+                title: "Remove user from app", app_user_id: app_user.id,
+                onclick: "delete_app_user("+ app_user.id.to_s+");"}
+                %i.fa.fa-trash-o
+
+
+- else
+  .empty
+    = "No User for App found"
+
+-if app_users.present? && app_users.size > 0
+  = render 'shared/pagination', collection: app_users, entry_name: 'App Users'
+
+
+:javascript
+
+  function delete_app_user(app_user){
+    var confirm_delete = confirm('do you want to remove this user from app ?')
+    if (confirm_delete)
+    {
+      var action_url = "app_users/" + app_user;
+      //alert(action_url);
+      $.ajax({
+        url: action_url,
+        type: 'DELETE',
+        dataType: 'script',
+        data: '',
+        success: ''
+      });
+    }
+  }

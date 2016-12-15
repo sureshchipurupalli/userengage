@@ -1,0 +1,72 @@
+- background_url = app_stat[1][:icon_url].blank? ?  '/images/app_default.png' : app_stat[1][:icon_url].to_s
+- app_id =  app_stat[1][:id].to_s
+.col-md-4.col-sm-6{style: 'padding-bottom:50px;padding-left:10px;padding-right:10px;'}
+  .mdl-shadow--2dp{style: "height:100%; width:342px;"}
+    .container{ style: "height:192px; width:342px;background: url("+background_url+");", id: "app_container" }
+      .row
+        .col-md-12
+          .mdl-card__menu
+            %button.mdl-button.mdl-js-button.mdl-button--icon{id: 'dashboard_app_menu' + app_id}
+              %i.material-icons{style: "color:white;"}
+                = 'more_vert'
+            .mdl-tooltip{for: 'dashboard_app_menu' + app_id}
+              = 'click to change the settings of  ' + app_stat[1][:name].to_s
+            %ul.background-cream.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect{for: 'dashboard_app_menu' + app_id}
+              -#%li.mdl-menu__item
+              -#  %a{href: push_notifications_path + "?mode=new&app_id=" + app_id  }
+              -#    = t('.create_campaign')
+              %li.mdl-menu__item
+                %a{href: push_notification_groups_path + "?app_id=" + app_id }
+                  %i.fa.fa-paper-plane-o
+                  = t('.campaigns')
+              %li.mdl-menu__item
+                %a{href: push_notification_users_path + "?app_id=" + app_id }
+                  %i.fa.fa-users
+                  = t('.pn_users')
+              %li.mdl-menu__item
+                %a{href: crash_reports_path + "?app_id=" + app_id }
+                  %i.fa.fa-bolt
+                  = t('.crash_reports')
+              %li.mdl-menu__item
+                %a{href: app_push_notification_settings_path(app_id)}
+                  %i.fa.fa-cog
+                  = t('.app_settings')
+              -#%li.mdl-menu__item
+              -#  %a{href: edit_app_path(app_id)}
+              -#    %i.fa.fa-cog
+              -#    = t('.app_settings')
+              %li.mdl-menu__item
+                %a{href: feedbacks_path  + "?app_id=" + app_id }
+                  %i.fa.fa-comments
+                  = t('.feedback')
+
+          %div{id: :app_container}
+            .app-name
+              = app_stat[1][:name]
+    .row
+      .col-md-12
+        .background-cream{id: :app_labels}
+          .col-md-4.pull-left{id: 'user_count' + app_id}
+            %a{href: push_notification_users_path + "?app_id=" + app_id }
+              .col-md-2.icon-space
+                %i.fa.fa-users.icons
+              .col-md-2.pull-left
+                = app_stat[1][:user_count]
+                .mdl-tooltip{for: 'user_count' + app_id}
+                  = 'MAU count for ' + app_stat[1][:name].to_s
+          .col-md-4.pull-left{id: 'crash_count' + app_id}
+            %a{href: crash_reports_path + "?app_id=" + app_id }
+              .col-md-2.icon-space
+                %i.fa.fa-bolt.icons
+              .col-md-2.pull-left
+                = app_stat[1][:crash_count]
+                .mdl-tooltip{for: 'crash_count' +app_id}
+                  = 'Crash count for  ' + app_stat[1][:name].to_s
+          .col-md-4.pull-left{id: 'feedback_count' + app_id}
+            %a{href: feedbacks_path  + "?app_id=" + app_id }
+              .col-md-2.icon-space
+                %i.fa.fa-comments.icons
+              .col-md-2.pull-left
+                = app_stat[1][:feedback_count]
+                .mdl-tooltip{for: 'feedback_count' + app_id}
+                  = 'Feedback count for  ' + app_stat[1][:name].to_s

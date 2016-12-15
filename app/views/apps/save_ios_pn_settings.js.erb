@@ -1,0 +1,5 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#ios_rowalerts").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+$("#ios_rowalerts").html("<%= j render 'shared/success', display_text: 'iOS push notification settings updated successfully.' %>");
+<% end %>

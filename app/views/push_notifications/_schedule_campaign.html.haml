@@ -1,0 +1,74 @@
+- today = Time.now.strftime("%m/%d/%Y")
+
+.mdl-shadow--2dp.background-cream{style: 'width: 96%;'}
+  .mdl-card__title
+    .mdl-card__title-text
+      %h4
+        = t(".schedule")
+  .mdl-card__actions.mdl-card--border
+    .mdl-card__supporting-text
+      .row.form-group.col-md-offset-1
+        %i.material-icons
+          = "date_range"
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+          %input.mdl-textfield__input.ui-datepicker{type: :text, id: :campaign_date, name: :campaign_date,
+              pattern: '(?:(?:0[1-9]|1[0-2])[\/\\-. ]?(?:0[1-9]|[12][0-9])|(?:(?:0[13-9]|1[0-2])[\/\\-. ]?30)|(?:(?:0[13578]|1[02])[\/\\-. ]?31))[\/\\-. ]?(?:19|20)[0-9]{2}',
+              value: today}
+          %label.mdl-textfield__label{for: :campaign_date}
+            = t('.select_date')
+          %span.mdl-textfield__error
+            = 'Input is not a valid date!'
+      .row.form-group.col-md-offset-1
+        %i.material-icons
+          ='timer'
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+          %input.mdl-textfield__input{type: :text, id: :campaign_time, name: :campaign_time,
+              pattern: '(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){1}',
+              value: '00:00'}
+          %label.mdl-textfield__label{for: :campaign_time}
+            = t('.select_time')
+          %span.mdl-textfield__error
+            = 'Input is not a valid time!'
+      .row.form-group.col-md-offset-1
+        .pull-right
+          %button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{id: 'btnPostPNMessage',
+            name: 'btnPostPNMessage',  :type => "submit"}
+            = 'Save & Send'
+            %i.material-icons
+              ='send'
+
+:javascript
+
+  $(document).ready(function()
+  {
+    $("#schedule_campaign #btnPostPNMessage").on('click',save_and_send)
+    $("#schedule_campaign #campaign_date").datepicker({ minDate: 0, maxDate: "+1M +10D" });
+    $('#schedule_campaign #campaign_time').bootstrapMaterialDatePicker
+    ({
+      date: false,
+      shortTime: true,
+      format: 'HH:mm'
+    });
+
+    //$('#date').bootstrapMaterialDatePicker
+    //({
+    //  weekStart: 0, format: 'MM/DD/YYYY',
+    //  time: false
+    //});
+  });
+
+  function save_and_send(e){
+    e.preventDefault();
+    var app_id = $('#schedule_campaign #hv_app_id').val();
+    var date = $("#schedule_campaign #campaign_date").val();
+    var time = $("#schedule_campaign #campaign_time").val();
+    var action_url = 'save_and_send?app_id=' + app_id;
+    var params = {app_id: app_id, date: date, time: time};
+    $.ajax({
+      url: action_url,
+      type: 'post',
+      dataType: 'script',
+      data: params,
+      success: ''
+    });
+  }

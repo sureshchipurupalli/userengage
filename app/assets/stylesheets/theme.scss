@@ -1,0 +1,165 @@
+@import "sub/imgn_side_nav";
+@import "variables";
+
+//Basic HTML elements
+h2 {
+  font-weight: 200;
+}
+
+// Overrride bootstrap theme styles
+
+//* {
+//  border-radius: 4 !important;
+//}
+
+//.btn-default {
+//  color: #333;
+//  background-color: #EBEBEB;
+//  border-color: #EBEBEB;
+//  font-weight: bolder !important;
+//  font-family: robotoregular;
+//  //font-size: 15px !important;
+//}
+
+.form-control {
+
+
+}
+
+.left-inner-addon {
+  position: relative;
+}
+.left-inner-addon input {
+  padding-left: 30px;
+}
+.left-inner-addon i {
+  position: absolute;
+  padding: 10px 12px;
+  pointer-events: none;
+}
+
+.right-inner-addon {
+  position: relative;
+}
+.right-inner-addon input {
+  padding-right: 30px;
+}
+.right-inner-addon i {
+  position: absolute;
+  right: 0px;
+  padding: 10px 12px;
+  pointer-events: none;
+}
+
+.navbar-default .navbar-brand {
+  color: #d6d6d6;
+}
+
+.fa-lock {
+  color: lightgray;
+}
+
+.fa-check {
+  color: #666666;
+}
+
+.icon-stack {
+  margin-left: 5px;
+  margin-top: 3px;
+  width:  35px
+}
+
+
+.white-text
+{
+  color: $white
+}
+
+.md-table-header{
+  background-color: $secondary;
+  .mdl-data-table__cell--non-numeric {
+    color: $white !important;
+  }
+  .mdl-data-table__cell--numeric {
+    color: $white !important;
+  }
+}
+
+.side_bar_top
+{
+  position: relative;
+  background-color: #3f51b5 !important;
+  color: $white;
+  filter: alpha(opacity=80);
+  /* IE */
+  -moz-opacity: 0.8;
+  /* Mozilla */
+  opacity: 0.8;
+}
+
+.side_bar
+{
+  background-color: #333542 !important;;
+  .mdl-navigation__link {
+    color: $white !important;
+  }
+
+  a:hover {
+    background-color: #3F51B5 !important;
+  }
+}
+
+
+.mdl-fab-button
+{
+  background-color: $primary !important;
+}
+
+.hrline {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-color: $olivegreen;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 98%;
+  align-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.mdl-page-header
+{
+  width:98% !important;
+  min-height:30px !important;
+}
+
+.mdl-block-gap
+{
+  height:10px;
+}
+
+.mdl-button{
+  min-width:10px !important;
+}
+
+.row.mdl-block-gap-30
+{
+  height:30px !important;
+}
+
+.md-block-background
+{
+  background-color: $secondary !important;
+  color: $white;
+  .mdl-card__title-text {
+    color: $white;
+  }
+  .mdl-card__title {
+    color: $white;
+  }
+}
+
+
+
+//.side_bar > .mdl-navigation__link{
+//  color: $primary !important;
+//}

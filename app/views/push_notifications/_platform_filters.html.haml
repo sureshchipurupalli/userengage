@@ -1,0 +1,38 @@
+.fluid-container.platforms-filters
+  %input{:type => "hidden", :value => app.id, :name => "app_id"}
+  .row
+    %p
+      =t('push_notifications.platform')
+  .row
+    .col-md-3
+    -platforms.each do |platform_id|
+      .col-md-3.platforms.text-center
+        %img{:src => asset_path("platforms/platform#{platform_id}.png"), :width => 100, :height => 100}
+        .checkbox.checkbox-success
+          %input{:type => "checkbox", :value => platform_id, :name => "filter_platforms[]", :id => "platform#{platform_id}", :checked => true}
+          %label{:for => "platform#{platform_id}"}
+:scss
+  .platforms-filters {
+      p{
+        text-align: center;
+        padding: 10px;
+        margin-top: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        color:green;
+      }
+  }
+:javascript
+  $(function(){
+
+    $("#send_push_notification_filters_container .platforms-filters input:checkbox").on('click', function(){
+      checkPlatforms();
+    });
+
+    checkPlatforms();
+  });
+
+  function checkPlatforms(){
+    showPaginationLoader($('#send_push_notification_filters_container #platform_filter_container'));
+    getGroupsFiltersResult();
+  }

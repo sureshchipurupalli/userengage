@@ -1,0 +1,37 @@
+- replies = replies
+
+-if replies.present? && replies.size > 0
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+
+          %th.mdl-data-table__cell--non-numeric
+            = t('.title')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.body')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.replied_by')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.replied_at')
+
+      - replies.each do |reply|
+        - user = User.where(id: reply.user_profile_id).first
+        - replied_by = user.present? ? user.name : '---'
+        - body = reply.body.length > 50 ? reply.body[0..50] + "...":  reply.body
+
+        %tr
+          %td.mdl-data-table__cell--non-numeric
+            = reply.title
+          %td.mdl-data-table__cell--non-numeric
+            = body
+          %td.mdl-data-table__cell--non-numeric
+            = replied_by
+          %td.mdl-data-table__cell--non-numeric
+            =timeago_tag reply.created_at, :nojs => true, :limit => 10.days.ago
+
+- else
+  = t(".no_replies_found")
+-#
+-#-if replies.present? && replies.size > 0
+-#  = render 'shared/pagination', collection: replies, entry_name: 'Replies'

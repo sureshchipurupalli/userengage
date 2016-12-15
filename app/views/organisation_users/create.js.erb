@@ -1,0 +1,5 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#create_org_user").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+window.location = "<%= organisation_users_path %>";
+<% end %>

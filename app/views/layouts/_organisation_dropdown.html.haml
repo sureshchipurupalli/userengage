@@ -1,0 +1,40 @@
+- if organisations.present? && organisations.size > 0
+  .org-dropdown.mdl-shadow--2dp
+    %select.selectpicker{"data-live-search" => "true", "style"=>"min-width:180px","id"=>"user_organisatons"}
+      - organisations.each do |org|
+        %option{:value => org.id, :selected => @selected_org.to_s == org.id.to_s, "data-url"=>organisation_set_path(org.id)}= org.name
+      %optgroup
+        %option{:value => 0}= t('create_org')
+
+:css
+
+  .org-dropdown button{
+    background-color: #3f51b5 !important;
+    color: #ffffff !important;
+    border-color: #ffffff
+  }
+
+:javascript
+
+  $(document).ready(function(){
+    $("#user_organisatons").on("change",change_organisation);
+  });
+
+  $('.selectpicker').selectpicker({
+    size: 4
+  });
+
+
+  function change_organisation()
+  {
+    var org_id = $(this).val();
+    var url = ""
+    if (org_id != 0) {
+      url = $(this).find(":selected").attr('data-url');
+      $.post(url,'','','script');
+    }
+    else {
+      url = "#{new_organisation_path}";
+      $.get(url,'','','script');
+    }
+  }

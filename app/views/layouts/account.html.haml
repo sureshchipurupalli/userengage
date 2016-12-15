@@ -1,0 +1,20 @@
+- user = current_user
+- organisations = @orgs
+- selected_org_id = @selected_org
+!!! 5
+%html
+  %head
+    =render 'layouts/header'
+  %body{:id => "home", "data-no-turbolink" => "true"}
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      %header.mdl-layout__header{style: "background-color:#3f51b5 !important;"}
+        .mdl-layout__header-row
+          = render "layouts/top_bar", organisations: organisations, selected_org_id: selected_org_id, user: user
+      .mdl-layout__drawer.side_bar{style: "overflow-x: hidden"}
+        = render "layouts/account_side_bar"
+      %main.mdl-layout__content
+        .page-content
+          .row
+            .col-md-12
+              = content_for?(:content) ? yield(:content) : yield
+              = render 'shared/modals/generic'

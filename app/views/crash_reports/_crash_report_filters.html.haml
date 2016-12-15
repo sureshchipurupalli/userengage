@@ -1,0 +1,125 @@
+.filter
+  -if app_versions.present?
+    %select.combo-box{name: 'filter_app_versions', id: 'filter_app_versions', multiple: 'multiple' }
+      -app_versions.each do |app_version|
+        %option{value: "#{app_version[0]}#$%#{app_version[1]}"}
+          = "#{app_version[0]} ( #{app_version[1]} )"
+.filter
+  -if os_versions.present?
+    %select.combo-box{name: 'filter_os_versions', id: 'filter_os_versions', multiple: 'multiple' }
+      -os_versions.each do |os_version|
+        %option{value: "#{os_version}"}
+          = "#{os_version}"
+
+:javascript
+  $(function() {
+
+    function getCrashReports(){
+      showPaginationLoader($('#crash_report_container.pagination_container'));
+      var form = $('#pagination_crash_reports_form')[0];
+
+      $.get($(form).attr('action'), $(form).serialize(), function(){
+
+      },'script');
+    }
+
+    var is_version_changed = false;
+    var is_os_changed = false;
+    $('#filter_app_versions').multiselect({
+      checkboxName: 'filter_app_versions[]',
+      buttonClass: 'btn btn-default filter-button',
+      buttonText: function(options, select) {
+        if (options.length === 0) {
+          return 'Version: All';
+        }
+        else {
+          var labels = [];
+          options.each(function() {
+            if ($(this).attr('label') !== undefined) {
+              labels.push($(this).attr('label'));
+            }
+            else {
+              labels.push($(this).html());
+            }
+          });
+         return 'Version: ' + labels.join(', ') + '';
+        }
+      },
+      buttonTitle: function(options, select) {
+        var labels = [];
+        options.each(function () {
+          labels.push($(this).text());
+        });
+        return labels.join(' - ');
+      },
+      enableFiltering: true,
+      enableCaseInsensitiveFiltering: true,
+      onChange: function(){
+        is_version_changed = true;
+      },
+      onDropdownHide: function(event) {
+        if(!is_version_changed)
+          return;
+        var ele = $('.crash-report.form-filter-container .app-versions');
+        ele.empty();
+        $("input[name='filter_app_versions[]']:checked").each(function(){
+          $('<input>').attr({
+            type: 'hidden',
+            name: 'app_versions[]',
+            value: $(this).val()
+          }).appendTo(ele);
+        });
+        getCrashReports();
+        is_version_changed = false;
+      }
+    });
+
+    $('#filter_os_versions').multiselect({
+      checkboxName: 'filter_os_versions[]',
+      buttonText: function(options, select) {
+        if (options.length === 0) {
+          return 'OS: All';
+        }
+        else {
+          var labels = [];
+          options.each(function() {
+            if ($(this).attr('label') !== undefined) {
+              labels.push($(this).attr('label'));
+            }
+            else {
+              labels.push($(this).html());
+            }
+          });
+         return 'OS: ' + labels.join(', ') + '';
+        }
+      },
+      buttonTitle: function(options, select) {
+        var labels = [];
+        options.each(function () {
+          labels.push($(this).text());
+        });
+        return labels.join(' - ');
+      },
+      enableFiltering: true,
+      enableCaseInsensitiveFiltering: true,
+      onChange: function(){
+        is_os_changed = true;
+      },
+      onDropdownHide: function(event) {
+        if(!is_os_changed)
+          return;
+        var ele = $('.crash-report.form-filter-container .os-versions');
+        ele.empty();
+        $("input[name='filter_os_versions[]']:checked").each(function(){
+          $('<input>').attr({
+            type: 'hidden',
+            name: 'os_versions[]',
+            value: $(this).val()
+          }).appendTo(ele);
+        });
+        getCrashReports();
+        is_os_changed = false;
+      }
+    });
+
+  })

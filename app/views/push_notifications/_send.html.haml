@@ -1,0 +1,22 @@
+.mdl-shadow--2dp{style: "width:98%"}
+  .col-md-12
+    .col-md-4
+    .col-md-3
+      .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+        .mdl-card__title
+          .mdl-card__title-text
+            = t('push_notifications.message')
+        .mdl-card__actions.mdl-card--border
+        #rowalerts
+        %div
+          #send_notification
+            = render 'pn_message'
+
+:css
+
+
+:javascript
+  $('#pn_preview_settings_tab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })

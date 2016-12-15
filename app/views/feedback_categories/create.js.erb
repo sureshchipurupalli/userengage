@@ -1,0 +1,5 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#feedback_category_creation_errors").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+window.location = "<%= feedback_categories_url + "?app_id=" + @app_id.to_s %>";
+<% end %>

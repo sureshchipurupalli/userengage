@@ -1,0 +1,33 @@
+.row
+  .col-md-12
+    %div.form-horizontal
+      .mdl-shadow--2dp{style: "width:98%"}
+        %form{url: feedback_postreply_path, id: 'post_feedback_reply',
+                              name: 'post_feedback_reply', :html => 'multipart: :true'}
+          %div
+            %input{type: :hidden, value: @app.id, name: 'app_id', id: 'app_id'}
+
+            #rowalerts
+
+            .row.col-md-offset-1
+              .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                %input.mdl-textfield__input{type: :text, id: :title, name: :title, value: ''}
+                %label.mdl-textfield__label{for: :title}
+                  = t('push_notifications.title')
+
+            .row.col-md-offset-1
+              .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                %textarea.mdl-textfield__input{type: :text, rows: '5', id: :body, name: :body, value: ''}
+                %label.mdl-textfield__label{for: :body}
+                  = t('push_notifications.body')
+
+            .row.col-md-offset-1
+              .centered
+                .pull-left
+                  %button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{title: 'copy to clipboard',
+                                    id: 'btnPostPNMessage', name: 'btnPostPNMessage',  :type => "submit"}
+                    =t('.reply')
+                .pull-right{style: "margin-right:40px"}
+                  %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                                    name: 'btnCancelReply', id: "btnCancelReply", value: t('cancel') }
+            .row.col-md-offset-1{style:"height:10px;"}

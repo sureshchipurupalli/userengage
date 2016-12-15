@@ -1,0 +1,47 @@
+- feedbacks = feedbacks
+-
+
+
+-if feedbacks.present? && feedbacks.size > 0
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+
+          %th.mdl-data-table__cell--non-numeric
+            = t('.category')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.content')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.created_at')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.view_details')
+          %th.mdl-data-table__cell--non-numeric
+            = t('.reply_status')
+
+      - feedbacks.each do |feedback|
+        - feedback_category = FeedbackCategory.where(id: feedback.feedback_category_id).first
+        - category_name = feedback_category.present? ? feedback_category.name : "---"
+        - content = feedback.content.length > 25 ? feedback.content[0..10] + "...":  feedback.content
+        - status = feedback.status == 2 ? "Replied" : ""
+        - reply_count =  FeedbackReply.where(feedback_id: feedback.id, deleted: false).size
+        %tr
+          %td.mdl-data-table__cell--non-numeric
+            = category_name
+          %td.mdl-data-table__cell--non-numeric
+            = content
+          %td.mdl-data-table__cell--non-numeric
+            -#= feedback.created_at
+            =timeago_tag feedback.created_at, :nojs => true, :limit => 10.days.ago
+          %td.mdl-data-table__cell--non-numeric
+            %a.dialog-button{id: :btnViewdetails, href: feedback_details_url(feedback.id)+"?app_id="+feedback.app_id.to_s}
+              = t('.view_details')
+          %td.mdl-data-table__cell--non-numeric
+            %div.material-icons.mdl-badge.mdl-badge--overlap{"data-badge" => reply_count }
+              = "reply"
+
+- else
+  = "Feedback not received"
+
+-if feedbacks.present? && feedbacks.size > 0
+  = render 'shared/pagination', collection: feedbacks, entry_name: 'Feedbacks'

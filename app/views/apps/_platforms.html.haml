@@ -1,0 +1,54 @@
+- platforms = @platforms
+- app_settings = @app_settings
+- checked = false
+- platforms.each do |platform|
+  - if app_settings.present? && app_settings.size > 0
+    - app_settings.each do |x|
+      - checked = x.platform_id == platform.id
+      - break if checked
+  = check_box_tag "platform_ids[]", platform.id, checked, {:class=>"faChkRnd"}
+  %label.labelcheckbox
+    = platform.name
+
+
+:css
+  /* CSS used here will be applied after bootstrap.css */
+
+  .labelcheckbox{
+    top:3px; left:15px;
+    margin-right:30px;
+    position:relative;
+  }
+
+
+  input.faChkRnd, input.faChkSqr {
+    visibility: hidden;
+  }
+
+  input.faChkRnd:checked:after, input.faChkRnd:after,
+  input.faChkSqr:checked:after, input.faChkSqr:after {
+    visibility: visible;
+    font-family: FontAwesome;
+    font-size:25px;height: 17px; width: 17px;
+    position: relative;
+    top: -3px;
+    left: 0px;
+    background-color:#FFF;
+    display: inline-block;
+  }
+
+  input.faChkRnd:checked:after {
+    content: '\f058';
+  }
+
+  input.faChkRnd:after {
+    content: '\f10c';
+  }
+
+  input.faChkSqr:checked:after {
+    content: '\f14a';
+  }
+
+  input.faChkSqr:after {
+    content: '\f096';
+  }

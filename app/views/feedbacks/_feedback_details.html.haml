@@ -1,0 +1,125 @@
+- feedback = feedback
+- replies = replies
+- latlong = feedback.latitude.to_s+","+feedback.longitude.to_s
+
+.row
+  .col-md-8
+    .div{style: "margin-left:20px;"}
+      #feedback_reply.background-cream.mdl-shadow--2dp
+        %form{url: feedback_details_url, id: 'post_feedback_details',
+              name: 'post_feedback_details', :html => 'multipart: :true'}
+          %input{type: :hidden, value: @app.id, name: 'app_id', id: 'app_id'}
+          .form-group{style: "margin-left:20px;"}
+            %table
+              %tr
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text, readonly: true, id: :feedback_category_name,
+                                                name: :feedback_category_name,
+                                                value: feedback_category_name}
+                    %label.mdl-textfield__label{for: :feedback_category_name}
+                      = t('.category')
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text,  readonly: true, id: :feedback_created_at,
+                                                name: :feedback_created_at, value: feedback.created_at}
+                    %label.mdl-textfield__label{for: :feedback_created_at}
+                      = t('.received_at')
+              %tr
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text,  readonly: true, id: :reference,
+                                                name: :reference, value: feedback.reference}
+                    %label.mdl-textfield__label{for: :reference}
+                      = t('.sent_by')
+                %td
+                  %div{ id: "map_canvas", name: "map_canvas", style: "margin-top:-32px;"}
+                    %img{src: 'https://maps.googleapis.com/maps/api/staticmap?maptype=roadmap&zoom=6&size=250x55&markers=color:red|label:M|'+ latlong +'&key=AIzaSyA-pemXtf8aAp_d78zOe_OdDIyddLjOoiY'}
+              %tr
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text, readonly: true, id: :app_version_code,
+                                                name: :app_version_code, value: user_details.app_version_code}
+                    %label.mdl-textfield__label{for: :app_version_code}
+                      = t('.app_version_code')
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text,  readonly: true, id: :app_version_name,
+                                                name: :app_version_name, value: user_details.app_version_name}
+                    %label.mdl-textfield__label{for: :feedback_created_at}
+                      = t('.app_version_name')
+
+              %tr
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text, readonly: true, id: :os_version,
+                                                name: :os_version, value: user_details.os_version}
+                    %label.mdl-textfield__label{for: :feedback_category_name}
+                      = t('.os_version')
+                %td
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                    %input.mdl-textfield__input{type: :text,  readonly: true, id: :model,
+                                                name: :model, value: mobile_model_details.model}
+                    %label.mdl-textfield__label{for: :model}
+                      = t('.model')
+              %tr
+                %td{colspan: "2"}
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %textarea.mdl-textfield__input{type: :text,  readonly: true, rows: '5', id: :content, name: :content, value: feedback.content}
+                      = feedback.content
+                    %label.mdl-textfield__label{for: :content}
+                      = t('.content')
+
+
+  .col-md-4.background-cream
+    = render "feedback_reply"
+.row.mdl-block-gap
+.row.background-cream
+  .col-md-12
+    .mdl-card__title
+      .mdl-card__title-text
+        = t(".responses")
+.row
+  .col-md-12
+    .mdl-card__actions.mdl-card--border
+.row.mdl-block-gap
+.row.background-cream
+  .col-md-12.feedback_replies
+    = render "feedbacks/replies", replies: replies
+:css
+  #feedback_reply td{
+    padding: 10px;
+  }
+
+:javascript
+
+  $(document).ready(function(){
+    $('#post_feedback_reply').on('submit', submitMsgForm)
+    $('#btnCancelReply').on('click',function(){
+      var feedback_url =  "#{feedbacks_url+"?app_id=" + @app_id.to_s }";
+      window.location = feedback_url;
+    });
+  });
+
+  function submitMsgForm(e){
+    e.preventDefault();
+    if (confirm('Do you want to post the reply')) {
+      var actionurl = $(this).attr('url')
+      var formData = new FormData($(this)[0]);
+      $.ajax({
+        url: actionurl,
+        type: 'post',
+        dataType: 'script',
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: formData,
+        success: ''
+      });
+    }
+    else
+    {
+      return
+    }
+
+  }

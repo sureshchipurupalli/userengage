@@ -1,0 +1,45 @@
+- selected_app = session[:selected_app]
+- selected_org = session[:selected_org]
+- app = App.where(id: selected_app).first if selected_app.present?
+- org = Organisation.where(id: selected_org).first if selected_org.present?
+- if selected_app.present?
+  -  org_app_image_url = app.app_icon_url.present? ? app.app_icon_url : '/images/app_default.png'
+- else
+  -  org_app_image_url = org.profile_pic_url.present? ? org.profile_pic_url : '/images/app_default.png'
+
+  -#%a.mdl-navigation__link{href: edit_app_path(selected_app)}
+  -#  - if app.app_icon_url.present?
+  -#    %img.img-circle.img-responsive{src: "#{app.app_icon_url}"}
+  -#  - else
+  -#    %img.img-circle.img-responsive{"style"=> "text-align:center;margin-left:75px;height:80px; width:80px", src: '/images/emptyuser.png'}
+  -#- else
+  -#  %a.mdl-navigation__link{href: edit_organisation_path(selected_org)}
+  -#    - if org.profile_pic_url.present?
+  -#      %img.img-circle.img-responsive.img-rounded{"style"=> "text-align:center;margin-left:75px;height:80px; width:80px", src: "#{org.profile_pic_url(:small)}"}
+  -#    - else
+  -#      %img.img-circle.img-responsive.img-rounded{"style"=> "text-align:center;margin-left:75px;height:80px; width:80px", src: '/images/emptyuser.png'}
+.side_bar_top.text-center.center-block{style: 'height:194px; margin-top:-25x; width:235px;background-color:#3f51b5; filter: alpha(opacity=60);-moz-opacity: 0.6;opacity: 0.6;'}
+  .mdl-shadow--2dp{style: "height:100%"}
+    %image.center-block{src: "/images/userengage.png"}
+    %br
+    - user = current_user
+    - if  user.profile_pic_url.nil?
+      %image.center-block.img-circle{"id"=>"user_profile_icon", "width"=>"50px", "height"=>"50px",
+                         "src"=>"/images/emptyuser.png", "style" => "border-radius:50% !important;"}
+      %div{"style"=>"margin-top:-37px;margin-left:10px;"}
+        = user.initials
+    - else
+      %image.center-block.img-circle.img-responsive{"id"=>"user_profile_icon_side_bar",
+                                                    "width"=>"80px",
+                                                    "height"=>"80px",
+                                                    "src"=>user.profile_pic_url(:small)}
+    %h5
+      - if selected_app.present?
+        = app.name
+      - else
+        = org.name
+%nav.mdl-navigation.side_bar{"id"=>"myNavmenu"}
+  - if selected_app.present?
+    = render 'layouts/app_side_menu', selected_org: selected_org, selected_app: selected_app
+  - else
+    = render 'layouts/accounts_side_menu', selected_org: selected_org

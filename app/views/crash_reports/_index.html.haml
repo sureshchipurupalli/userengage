@@ -1,0 +1,48 @@
+
+=form_tag crash_reports_path(app_id: @app_id), :method => :get, :remote => true, :id =>'pagination_crash_groups_form' do
+  .crash-report.form-filter-container
+    %input{type: 'hidden', name: 'platform', value: platform}
+  -if crash_groups.present?
+    .centered
+      %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+        %thead
+          %tr.md-table-header
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('crash_reports.index.table.exception')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('crash_reports.index.table.last_occurred')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('crash_reports.index.table.first_occurred')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('crash_reports.index.table.total_crashes')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('crash_reports.index.table.total_users')}"
+        - crash_groups.each do |group|
+          %tr
+            %td.mdl-data-table__cell--non-numeric
+              %a{href: "#{crash_report_path(id: group.id, app_id: app.id)}"}
+                = "#{group.exception}"
+              %br
+                = "#{group.additional}"
+              %br
+                %i.fa.fa-star
+                = "#{t('crash_reports.index.table.app_versions')}: "
+                = "#{group.app_versions}"
+                %i.fa.fa-star
+                = "#{t('crash_reports.index.table.os_versions')}: "
+                = "#{group.os_versions}"
+              %br
+            %td.mdl-data-table__cell--non-numeric
+              =timeago_tag group.last_reported_on, limit: 30.days.ago
+            %td.mdl-data-table__cell--non-numeric
+              =timeago_tag group.first_reported_on, limit: 30.days.ago
+            %td.mdl-data-table__cell--non-numeric
+              = "#{group.total_reports}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{group.total_users}"
+  -else
+    .empty-content
+      ="#{t('crash_reports.index.no_crashes')}"
+
+-if crash_groups.present? && crash_groups.size > 0
+  = render 'shared/pagination', collection: crash_groups, entry_name: 'Crash Reports'

@@ -1,0 +1,8 @@
+development:
+  UE_API_KEY: 12345
+
+staging:
+  UE_API_KEY: 12345
+
+production:
+  UE_API_KEY: 12345

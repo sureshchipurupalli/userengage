@@ -1,0 +1,5 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#png_rowalerts").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+window.location = "<%= create_campaign_content_url + '?app_id=' + @app_id.to_s %>";
+<% end %>

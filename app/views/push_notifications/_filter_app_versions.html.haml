@@ -1,0 +1,26 @@
+- app_versions = app_versions
+- app_version_filters = app_version_filters
+
+
+.mdl-shadow--2dp{style:'width: 98%;'}
+  .png-alert-cards
+    .title.dark-blue
+      %i.material-icons.icon
+        = 'developer_mode'
+      = t('.versions')
+    .dark-blue
+      - if !app_versions.nil? && app_versions.size > 0
+        .blue.description{style: 'padding:20px;height:200px;overflow-y: scroll;'}
+          - app_versions.each do |app_version|
+            - is_checked = app_version_filters.include? app_version[1]
+            %label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect{for: 'app_version_'+app_version[1].to_s}
+              %span.mdl-switch__label
+                = app_version[1] + ' - ' + app_version[0]
+              %input.mdl-switch__input.version-filters{ type: 'checkbox', name:app_version[1],
+                                                        checked: is_checked,
+                                                        id: 'app_version_'+app_version[1].to_s}
+            %br
+            %br
+      - else
+        .blue{style: 'padding:20px;height:50px;'}
+          = t('.no_versions_found')

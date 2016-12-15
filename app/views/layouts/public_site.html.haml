@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    =render 'layouts/header'
+  %body{:id => "home", "data-no-turbolink" => "true"}
+    %nav.public.navbar.navbar-default.navbar-fixed-top{style: "background-color:#3F51B5"}
+      .navbar
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li
+              %a.navbar-brand{:href => "/", "style"=>"text-align:center"}
+                %span.app_title.white-text
+                  %img{src: "/images/userengage.png"}
+                %p.app_caption.white-text
+                  =t('app_title')
+    .container-fluid.top-space.public-top-margin
+      = content_for?(:content) ? yield(:content) : yield
+
+:css
+  .public .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+  }
+
+  .public .navbar .navbar-collapse {
+    text-align: center;
+  }
+
+  .public-top-margin {
+    margin-top: 80px;
+  }

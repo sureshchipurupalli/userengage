@@ -1,0 +1,55 @@
+#pn_preview_settings_tab
+  .mdl-tabs.mdl-js-tabs.mdl-js-ripple-effect
+    .mdl-tabs__tab-bar
+      %a.mdl-tabs__tab.is-active{href: "#tabandroid", id:"android-tab", role: "tab", 'data-toggle' => "tab",
+          'aria-controls' => 'tabandroid'}
+        %i.fa.fa-android.fa-2x
+        %label
+          = 'Android'
+      %a.mdl-tabs__tab{href: "#tabios", id:"ios-tab", role: "tab", 'data-toggle' => "tab",
+            'aria-controls' => 'tabios'}
+        %i.fa.fa-apple.fa-2x
+        %label
+          = 'iOS'
+    .mdl-tabs__panel.is-active{id: :tabandroid}
+      .col-md-12.-align-center.center-block.center{style: 'margin-top:20px;margin-left:100px;'}
+        %img.img-responsive{src: "/images/android.jpg", width:"325px", height: "404px"}
+
+        #android_preview{style: 'z-index: 40; width:490px; background-color:white;margin-top:-300px; margin-left:40px;'}
+          %table
+            %tr
+              %td{style: 'vertical-align:middle;'}
+                %img.img-responsive.img-circle.img-thumbnail{src: "/images/emptyuser.png", width: '50px',height: '50px'}
+              %td
+                %table.table.table-responsive
+                  %tr
+                    %td
+                      #android_title
+                        = ' Sample Title '
+                  %tr
+                    %td
+                      #android_body
+                        = 'Sample Body'
+
+    .mdl-tabs__panel{id: :tabios}
+      .col-md-12{style: 'margin-top:20px;margin-left:100px;'}
+        %img.img-responsive{src: "/images/iphone.jpg", width:"325px", height: "404px"}
+
+        #ios_preview{style: 'z-index: 40; width:490px; background-color:white;margin-top:-200px; margin-left:40px;'}
+          %table
+            %tr
+              %td{style: 'vertical-align:middle;'}
+                %img.img-responsive.img-circle.img-thumbnail{src: "/images/emptyuser.png", width: '50px',height: '50px'}
+              %td
+                %table.table.table-responsive
+                  %tr
+                    %td
+                      #ios_title
+                        = ' Sample Title '
+                  %tr
+                    %td
+                      #ios_body
+                        = 'Sample Body'
+
+.mdl-block-gap-30
+  = '.'

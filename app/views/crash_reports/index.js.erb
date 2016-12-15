@@ -1,0 +1,3 @@
+$('.pagination_container#crash_group_container .pagination-data').html('<%= j render "crash_reports/index", crash_groups: @crash_groups, product: @product, platform: @platform, page: @page, per_page: @per_page %>').fadeIn(400);
+hidePaginationLoader($('.pagination_container#crash_group_container'));
+$("time").timeago();

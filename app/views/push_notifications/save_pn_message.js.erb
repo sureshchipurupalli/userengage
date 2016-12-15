@@ -1,0 +1,6 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#rowalerts").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+window.location.href = "<%= select_users_path.to_s + "?app_id=" + @app.id.to_s %>";
+<% end %>
+

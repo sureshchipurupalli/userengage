@@ -1,0 +1,56 @@
+.mdl-shadow--2dp1
+  - if !pn_users.nil? && pn_users.size > 0
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp{style: 'width: 100%;'}
+      %thead
+        %tr.md-table-header
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_users.index.table.users.reference')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_users.index.table.users.platform_name')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_users.index.table.users.device')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_users.index.table.users.mobile')}"
+          %th.mdl-data-table__cell--non-numeric
+            = "#{t('push_notification_users.index.table.users.app_version')}"
+      - pn_users.each do |user|
+        %tr
+          %td.mdl-data-table__cell--non-numeric
+            = "#{user.reference_id}"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{get_platform_name(user.platform_id)}"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{user.device_id}"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{user.mobile_model.model}"
+          %td.mdl-data-table__cell--non-numeric
+            = "#{user.app_version_code}(#{(user.app_version_name)})"
+            %input{type: :hidden, id: :pn_user, name: :pn_user, value: user.id, class: :pn_user}
+    %input{type: "hidden", value:@app_id, id: :app_id, name: :app_id}
+  - else
+    = "No push notification users for this application"
+  = render 'shared/pagination', collection: pn_users, entry_name: 'Push Notfication Users'
+
+
+:javascript
+  $(document).ready(function(){
+    $('#preview_and_schedule').on('click',preview_and_schedule)
+  });
+
+  function preview_and_schedule(e){
+    e.preventDefault();
+    var pn_users = new Array();
+    $.each($('.pn_user'), function( index, hv ) {
+      pn_users.push($(hv).val());
+    });
+    var app_id = $("#app_id").val();
+    var action_url = 'save_filtered_users?app_id='+app_id;
+    var params = {pn_users: pn_users};
+     $.ajax({
+      url: action_url,
+      type: 'post',
+      dataType: 'script',
+      data: params,
+      success: ''
+    });
+  }

@@ -1,0 +1,8 @@
+<% if @errors.present? && @errors.size > 0  %>
+$("#org_creation_errors").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+window.location = "<%= edit_organisation_path(@org.id) %>";
+$(".main-content").html("<%= j render 'edit', organisation: @org  %>");
+$('#ddlorganisations').html("<%= j render 'layouts/organisation_dropdown', organisations: @orgs %>");
+<% end %>
+

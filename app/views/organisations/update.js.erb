@@ -1,0 +1,7 @@
+//$(".main-content").html("<%= j render 'organisations/edit', organisation: @org  %>");
+<% if @errors.present? && @errors.size > 0  %>
+$("#org_creation_errors").html("<%= j render 'shared/errors', errors: @errors %>");
+<% else %>
+$("#org_creation_errors").html("<%= j render 'shared/success', display_text: 'Organisation Profile updated successfully.' %>");
+$('#ddlorganisations').html("<%= j render 'layouts/organisation_dropdown', organisations: @orgs %>");
+<% end %>

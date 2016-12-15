@@ -1,0 +1,68 @@
+-selected_org = selected_org
+-selected_app = selected_app
+
+%a.mdl-navigation__link{href: root_path}
+  %i.fa.fa-home
+    ="Home"
+
+%a.mdl-navigation__link{href: push_notification_groups_path + "?app_id=" +selected_app.to_s}
+  %i.fa.fa-paper-plane-o
+    ="Campaign"
+
+%a.mdl-navigation__link{href: push_notification_users_path+ "?app_id=" +selected_app.to_s}
+  %i.fa.fa-users
+    ="MAU"
+
+%a.mdl-navigation__link{href: crash_reports_path + "?app_id=" +selected_app.to_s}
+  %i.fa.fa-bolt
+    ="Crash Reports"
+
+%a.mdl-navigation__link{href: app_users_path + "?app_id=" +selected_app.to_s}
+  %i.fa.fa-bolt
+    ="App Users"
+
+%a.mdl-navigation__link{href: feedbacks_path + "?app_id=" +selected_app.to_s}
+  %i.fa.fa-comments
+    = "Feedbacks"
+
+%a.mdl-navigation__link{href: feedback_categories_path + "?app_id=" +selected_app.to_s}
+  %i.fa.fa-file-text
+    = "Feedback Category"
+
+%a.mdl-navigation__link{href: app_push_notification_settings_path(selected_app)}
+  %i.fa.fa-cog
+    = "Settings"
+-#
+-#%a.mdl-navigation__link{href: edit_app_path(selected_app)}
+-#  %i.fa.fa-tachometer
+-#    ="App Profile"
+
+-#%a.mdl-navigation__link{href:"#", dataurl: "#"}
+-#  %i.fa.fa-tachometer
+-#    ="Dashboard"
+
+:css
+  .mdl-navigation__link{
+    font-size: 14px !important;
+  }
+
+
+:javascript
+  $(document).ready(function(){
+    $('#accounts_side_menu li a').on('click',navigate_to)
+  });
+
+  function navigate_to(e){
+    alert('hi');
+    var url = "" + $(this).attr('dataurl');
+    var href = "" + $(this).attr('href');;
+    var orgid = $('#hdf_selected_org_id').val();
+
+    if (href != '#') {
+      return true;
+    }
+    else {
+      e.preventDefault();
+      $.get(url,'','','script');
+    }
+  }

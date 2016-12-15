@@ -1,0 +1,11 @@
+#filter_count.col-md-12
+  %p
+    ="#{pn_users.present? ? "#{pn_users.size} " : 0 } Users found"
+:scss
+  #filter_count{
+    p {
+      padding:30px;
+      font-size: 16px;
+      text-align: center;
+    }
+  }

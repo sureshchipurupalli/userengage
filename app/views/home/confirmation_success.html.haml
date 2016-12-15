@@ -1,0 +1,62 @@
+.top-space
+  .container
+    .row{style: "height:40px"}
+    .row
+      .col-md-2
+      .col-md-8.background-cream.mdl-shadow--2dp{"style"=>"text-align:center"}
+        %div{"style"=>"height:40px"}
+        %div
+          %h2{"style"=>"margin-bottom:40px"}
+            = t('congrats')
+        .row
+          .col-md-2
+          .col-md-2{"style"=>"margin-top:20px;"}
+            %i.fa.fa-envelope-o.fa-5x
+          .col-md-5.pull-left
+            %div
+              %h3.pull-left
+                = t('news_letter_title')
+            %div.pull-left{"style"=>"margin-right:20px"}
+              = t('news_letter_text')
+          .col-md-3
+        .row{"style"=>"margin-top:50px;", id: :newsletteractions}
+          .col-md-2
+          .col-md-4
+            %span.pull-left
+              %button.btn.btn-warning{id: :btnSave}=t('save_and_continue')
+          .col-md-4
+            %span
+              %button.btn.btn-warning{id: :btnNoThanks}=t("no_thanks")
+          .col-md-2
+        .row{style: "height:20px"}
+      .col-md-2
+
+
+:javascript
+  $(document).ready(function(){
+    $('#newsletteractions #btnSave').on('click',sendNewsLetter);
+    $('#newsletteractions #btnNoThanks').on('click',noThanks);
+  });
+
+  function sendNewsLetter(){
+    var news_letter_url = "#{register_newsletter_path}";
+    var params = []
+    $.ajax({
+        url: news_letter_url,
+        type: "POST",
+        data: params,
+        success:'',
+        error: ''
+      });
+  }
+
+  function noThanks(){
+    var sign_in_url = "#{new_user_session_path}";
+    window.location = sign_in_url;
+  }
+
+:css
+  .fa-envelope-o
+  {
+    color:#E1BA04;
+  }

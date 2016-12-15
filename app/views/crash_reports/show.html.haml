@@ -1,0 +1,166 @@
+-group = @crash_group
+-content_for :header_links do
+  = include_visualization_api
+.page-content
+  .row
+    .col-md-12
+      .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp.side-heading
+        .mdl-card__title
+          .col-md-6.pull-left
+            .page-title{style: "background-color: #333542 !important;"}
+              .name
+                = "Crash Report Details"
+
+              .description
+                = "Crash Report Details"
+          .col-md-6
+            .pull-right{style: "color:white"}
+              %table
+                %tr
+                  %td
+                    .mdl-badge{'data-badge' => group.total_reports}
+                      = "#{t('crash_reports.show.total_crashes')}"
+                  %td
+                    .space(style="width:20px;")
+                  %td
+                    .mdl-badge{'data-badge' => group.total_users}
+                      = "#{t('crash_reports.show.total_users')}"
+
+
+            -#%h4
+            -#  = "Crash Report Details"
+          -#= "#{t('crash_reports.show.last_occurred')}: "
+          -#=timeago_tag group.last_reported_on, limit: 30.days.ago
+          -#%br
+          -#= "#{t('crash_reports.show.first_occurred')}: "
+          -#=timeago_tag group.first_reported_on, limit: 30.days.ago
+  .row.mdl-block-gap
+  .row
+    .col-md-12
+      .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp{style: 'width: 98%;'}
+        .mdl-card__actions.mdl-card--border
+          .col-md-6.pull-left
+            %h5
+              = "#{group.exception}"
+          .col-md-6
+            .pull-right
+              %table
+                %tr
+                  %td
+                    .gap{style: 'height:20px;'}
+                %tr
+                  %td
+                    %i.fa.fa-calendar.fa-2x
+                  %td{style: "width:5px;"}
+                  %td
+                    %table
+                      %tr
+                        %td
+                          = "#{t('crash_reports.show.last_occurred')}: "
+                          =timeago_tag group.last_reported_on, limit: 30.days.ago
+                      %tr
+                        %td
+                          .gap{style: 'height:2px;'}
+                      %tr
+                        %td
+                          = "#{t('crash_reports.show.first_occurred')}: "
+                          =timeago_tag group.first_reported_on, limit: 30.days.ago
+          .row
+            .col-md-12
+              .hrline
+          .row
+            .col-md-12
+              .crash-group-graph.col-sm-12.block-model1
+                .col-sm-4
+                  .title.text-center
+                    = "#{t('crash_reports.show.day_wise_crashes')}"
+                  .chart
+                    - visualization "day_wise_chart", "ColumnChart", :width => '100%', :height => 200, is3D: true, legend: {position: 'bottom'}, :html => {:class => "graph_chart"} do |chart|
+                      - chart.string "Version"
+                      - chart.number "Crashes"
+                      - (Date.today - 6.days).upto(Date.today).each do |day|
+                        -chart.add_row([day.day.to_s, @day_wise_crashes[day]])
+                .col-sm-4
+                  .title.text-center
+                    = "#{t('crash_reports.show.app_versions')}"
+                  .chart
+                    - visualization "app_versions_chart", "PieChart", :width => '100%', :height => 200, is3D: true, legend: {position: 'bottom'}, :html => {:class => "graph_chart"} do |chart|
+                      - chart.string "Version"
+                      - chart.number "Crashes"
+                      - @app_versions.each do |version|
+                        - chart.add_row(["#{version[0][0]} ( #{version[0][1]} )", version[1].to_i])
+                .col-sm-4
+                  .title.text-center
+                    = "#{t('crash_reports.show.os_versions')}"
+                  .chart
+                    - visualization "os_versions_chart", "PieChart", :width => '100%', :height => 200, is3D: true, legend: {position: 'bottom'}, :html => {:class => "graph_chart"} do |chart|
+                      - chart.string "Version"
+                      - chart.number "Crashes"
+                      - @os_versions.each do |version|
+                        - chart.add_row(["#{version[0]}", version[1].to_i])
+  .row{style: "height:10px"}
+  .row
+    .col-md-12
+      .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp{style: 'width: 98%;'}
+        .mdl-card__actions.mdl-card--border
+          .mdl-tabs.mdl-js-tabs.mdl-js-ripple-effect
+            .mdl-tabs__tab-bar
+              %a.mdl-tabs__tab.is-active{href: "#tab_stack_trace", id:"stack_trace-tab", role: "tab", 'data-toggle' => "tab",
+                  'aria-controls' => 'tab_tack_trace'}
+                %label
+                  = "#{t('crash_reports.show.stack_trace')}"
+              %a.mdl-tabs__tab{href: "#tab_thread_details", id:"thread_details-tab", role: "tab", 'data-toggle' => "tab",
+                    'aria-controls' => 'tab_thread_details'}
+                %label
+                  = "#{t('crash_reports.show.thread_details')}"
+              %a.mdl-tabs__tab{href: "#tab_crash_list", id:"crash_list-tab", role: "tab", 'data-toggle' => "tab",
+                    'aria-controls' => 'tab_crash_list'}
+                %label
+                  = "#{t('crash_reports.show.crash_list')}"
+            .mdl-tabs__panel.is-active{id: :tab_stack_trace}
+              .col-md-12{style: 'margin-top:20px;'}
+                .data
+                  - if @recent_crash.present?
+                    - cause_line = @recent_crash.cause_line.present? ? @recent_crash.cause_line : 0
+                    - source_line = @recent_crash.source_line.present? ? @recent_crash.source_line : 0
+                    - crash_lines = @recent_crash.stack_trace.lines if @recent_crash.stack_trace.present?
+                    - if crash_lines.present?
+                      %table.table
+                        -crash_lines.each_with_index do |line, i|
+                          - i = i + 1
+                          %tr
+                            %td.index
+                              = "#{i}"
+                            %td
+                              %span{class: "#{'alert' if i == cause_line || i == source_line }"}
+                                = "#{line}"
+            .mdl-tabs__panel{id: :tab_thread_details}
+              .col-md-12{style: 'margin-top:20px;'}
+                .data
+                  - thread_lines = @recent_crash.thread_details.lines if @recent_crash.present? and @recent_crash.thread_details.present?
+                  - if thread_lines.present?
+                    %table.table
+                      -thread_lines.each_with_index do |line, i|
+                        %tr
+                          %td.index
+                            = "#{i+1}"
+                          %td
+                            = "#{line}"
+            .mdl-tabs__panel{id: :tab_crash_list}
+              .col-md-12{style: 'margin-top:20px;'}
+                .data
+                  .tab-filters
+                    = render "crash_reports/crash_reports", crash_group_id: @crash_group_id, crashes: @crash_reports, app: @app, filters: @filters, page: @page, per_page: @per_page
+  .row
+    .col-md-12
+      = ". "
+= render_visualizations
+
+
+
+:css
+  .side-heading{
+    width:100%;
+    min-height:15px !important;
+    background-color: #333542 !important;"}
+  }

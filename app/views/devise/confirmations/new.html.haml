@@ -1,0 +1,48 @@
+.top-space
+  .container
+    .row{style: "height:80px;"}
+    .row
+      .col-md-4
+      .col-md-4
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title{style: "background-color:#3F51B5"}
+            .mdl-card__title-text{style: "color:#ffffff"}
+              = "Confirm"
+          .mdl-card__actions.mdl-card--border
+          %div
+            #create_app
+              .row
+                .col-md-11
+                  %div
+                    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+                      = devise_error_messages!
+                      #error_explanation
+                        %ul
+                          - flash.each do |name, msg|
+                            %li
+                              %span{:id => "flash_#{name}" }
+                                = msg
+                      .row.col-md-offset-1{id: ""}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                          %input.mdl-textfield__input{type: :text, id: :email, name: "user[email]", for: :email,
+                                                      value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                                                      autofocus: false}
+                          %label.mdl-textfield__label{for: :email}
+                            = t('email')
+
+
+                      .row{style: "height:20px;"}
+                      .row.col-md-offset-1{id: ""}
+                        .centered
+                          %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--colored.md-form-field-long-100p{ :type => "submit",
+                            class: "btn btn-success",
+                            id: "btnCreateApp", value: "Resend confirmation details" }
+                      .row{style: "height:30px;"}
+
+      .col-md-4
+
+:css
+  a.mdl-mega-footer__heading{
+    color: #448AFF !important;
+    padding-right: 0 !important;
+  }

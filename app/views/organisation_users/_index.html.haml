@@ -1,0 +1,73 @@
+- org_users = org_users
+
+#org_user_status
+
+-if org_users.present? && org_users.size > 0
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('.id')
+          %th.mdl-data-table__cell--non-numeric
+            = t('first_name')
+          %th.mdl-data-table__cell--non-numeric
+            = t('last_name')
+          %th.mdl-data-table__cell--non-numeric
+            = t('email')
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('role')
+          -#%th.mdl-data-table__cell--non-numeric
+          -#  = t('edit')
+          %th.mdl-data-table__cell--non-numeric
+            = t('delete')
+
+      - org_users.each do |org_user|
+        %tr
+          - role = org_user.role_id != 2 ? "View Only":"Admin"
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  = org_user.id
+          %td.mdl-data-table__cell--non-numeric
+            = org_user.first_name
+          %td.mdl-data-table__cell--non-numeric
+            = org_user.last_name
+          %td.mdl-data-table__cell--non-numeric
+            = org_user.email
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  = role
+          -#%td.mdl-data-table__cell--non-numeric
+          -#  %a{href: "#"}
+          -#    = t('edit')
+          %td.mdl-data-table__cell--non-numeric
+            .delete_org_user
+              %a{name: "delete_org_user", id: "delete_org_user",
+                title: "Remove user from organisation", org_user_id: org_user.id,
+                onclick: "delete_org_user("+ org_user.id.to_s+");"}
+                %i.fa.fa-trash-o
+
+
+- else
+  .empty
+    = "No organisations users found"
+
+-if org_users.present? && org_users.size > 0
+  = render 'shared/pagination', collection: org_users, entry_name: 'Organisation Users'
+
+
+:javascript
+
+  function delete_org_user(org_user){
+    var confirm_delete = confirm('do you want to remove user from organisation ?')
+    if (confirm_delete)
+    {
+      var action_url = "organisation_users/" + org_user;
+      //alert(action_url);
+      $.ajax({
+        url: action_url,
+        type: 'DELETE',
+        dataType: 'script',
+        data: '',
+        success: ''
+      });
+    }
+  }

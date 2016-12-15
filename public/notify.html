@@ -1,0 +1,51 @@
+<html>
+
+<body>
+    <a href="#" id="dnperm">Request Permission</a>
+    <br>
+    <a href="#" id="dntrigger">Trigger</a>
+    <script>
+        var dnperm = document.getElementById('dnperm');
+        var dntrigger = document.getElementById('dntrigger');
+        dnperm.addEventListener('click',function(e){
+            e.preventDefault();
+            if(!window.Notification){
+                alert('Sorry notifictions are not supported');
+            } else {
+                Notification.requestPermission(function(p){
+                    if (p === 'denied'){
+                        alert('permission denied for notifications');
+                    } else if (p === 'granted'){
+                        alert('permission granted for notifications');
+                    }
+                });
+            }
+        });
+
+        // simulate the event
+        dntrigger.addEventListener('click', function(e){
+            var notify;
+            e.preventDefault();
+            if (Notification.permission === 'default'){
+                alert('please allow notifications');
+            } else {
+                notify = new Notification('New message from MKR',{
+                    body: "Hello how are you today?",
+                    icon: 'http://128.199.211.248:1002/images/userengage.png',
+                    tag: '2323'
+                });
+
+                //add event handler to notification object
+                notify.onclick = function(){
+                    alert('someone clicked notification' + this.tag);
+                }
+
+            }
+
+
+        });
+
+    </script>
+
+</body>
+</html>

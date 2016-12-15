@@ -1,0 +1,16 @@
+- platform_filters = platform_filters
+- version_filters = version_filters
+- model_filters = model_filters
+.mdl-shadow--2dp{style: 'width: 96%;'}
+  .mdl-card__title
+    .mdl-card__title-text
+      %h4
+        = t('push_notifications.filters')
+  .mdl-card__actions.mdl-card--border
+    .mdl-card__supporting-text
+      %div
+        = render 'selected_filtered_values', filter_name: 'Platforms', collection: platform_filters
+      %div
+        = render 'selected_filtered_values', filter_name: 'Versions', collection: version_filters
+      %div
+        = render 'selected_filtered_values', filter_name: 'Models', collection: model_filters

@@ -1,0 +1,52 @@
+
+=form_tag push_notification_users_path(app_id: app), :method => :get, :remote => true, :id =>'pagination_pn_users_form' do
+  - if filters.present?
+    .pn-users.form-filter-container
+      %input{type: 'hidden', name: 'platform', value: platform}
+      .app-versions
+        -if  filters[:app_versions].present?
+          -filters[:app_versions].each do |version|
+            %input{type: 'hidden', name: 'app_versions[]', value: version}
+      .os-versions
+        -if filters[:os_versions].present?
+          -filters[:os_versions].each do |os|
+            %input{type: 'hidden', name: 'os_versions[]', value: os}
+  -if pn_users.present?
+    .centered
+      %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+        %thead
+          %tr.md-table-header
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_users.index.table.users.user_uniq_key')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_users.index.table.users.reference')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_users.index.table.users.device')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_users.index.table.users.mobile')}"
+            %th.mdl-data-table__cell--numeric
+              = "#{t('push_notification_users.index.table.users.os_version')}"
+            %th.mdl-data-table__cell--numeric
+              = "#{t('push_notification_users.index.table.users.app_version')}"
+        - pn_users.each do |user|
+          %tr
+            %td.mdl-data-table__cell--non-numeric
+              ="#{user.user_uniq_key}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{user.reference_id}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{user.device_id}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{user.mobile_model.model}"
+            %td
+              = "#{user.os_version}"
+            %td
+              = "#{user.app_version_code}(#{(user.app_version_name)})"
+  -else
+    .empty-content
+      ="#{t('push_notification_users.index.no_notification_users')}"
+
+-if pn_users.present? && pn_users.size > 0
+  = render 'shared/pagination', collection: pn_users, entry_name: 'MAU'
+
+:css

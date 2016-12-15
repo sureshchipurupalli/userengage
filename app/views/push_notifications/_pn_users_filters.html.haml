@@ -1,0 +1,17 @@
+- models = models
+- versions = versions
+- platforms = platforms
+- platform_filters =  platform_filters
+%div{id: 'pn_users_filters', style: 'margin-right:6px;'}
+  = render 'filter_platforms', platforms: platforms, platform_filters: platform_filters
+  %br
+  = render 'filter_devices', models: models, model_filters: model_filters
+  %br
+  = render 'filter_app_versions', app_versions: versions, app_version_filters: app_version_filters
+  %br
+
+:css
+  #pn_users_filters .mdl-switch__label
+  {
+    font-size: 12px !important;
+  }

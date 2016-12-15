@@ -1,0 +1,28 @@
+- timezones = timezones
+- selected_timezone = selected_timezone
+- if timezones.present? && timezones.size > 0
+  %i.fa.fa-clock-o.fa-2x
+    %select.user_timezones_picker{"data-live-search" => "true",
+                                  id: "user_timezones", name: "user_timezones"}
+      - timezones.each do |timezone|
+        %option{:value => timezone,  :selected => selected_timezone == timezone}
+          = timezone
+
+    %input{type: :hidden, id: :hdftimezone, name: :hdftimezone}
+
+:javascript
+
+  $(document).ready(function(){
+    $("#user_timezones").on("change",change_timezone);
+    change_timezone();
+  });
+
+  $('.user_timezones_picker').selectpicker({
+    size: 6
+  });
+
+  function change_timezone()
+  {
+    var time_zone = $(this).val();
+    $("#hdftimezone").val(time_zone)
+  }

@@ -1,0 +1,23 @@
+.top-space
+  .container
+    .row
+      .col-md-2
+      .col-md-8{"style"=>"text-align:center"}
+        %div{"style"=>"height:100px"}
+        %div
+          %i.fa.fa-check-circle.fa-5x
+        %div.background-cream
+          %h2{"style"=>"margin-bottom:20px"}
+            = t('registration_text1')
+        %div.background-cream
+          = t('registration_text2')
+        %div.background-cream
+          = t('registration_text3')
+        %div{style: "height:20px;"}
+
+      .col-md-2
+:css
+  .fa-check-circle
+  {
+    color:#6BB631;
+  }

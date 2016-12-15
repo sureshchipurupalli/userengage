@@ -1,0 +1,83 @@
+.top-space
+  .container
+    .row{style: "height:80px;"}
+    .row
+      .col-md-4
+      .col-md-4
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title{style: "background-color:#3F51B5"}
+            .mdl-card__title-text{style: "color:#ffffff"}
+              = t('change_password')
+          .mdl-card__actions.mdl-card--border
+          %div
+            #create_app
+              .row
+                .col-md-11
+                  %div
+                    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+                      = devise_error_messages!
+                      = f.hidden_field :reset_password_token
+
+                      #error_explanation
+                        %ul
+                          - flash.each do |name, msg|
+                            %li
+                              %span{:id => "flash_#{name}" }
+                                = msg
+                      .row.col-md-offset-1{id: ""}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                          %input.mdl-textfield__input{type: :password, id: :password, name: "user[password]", for: :password, value: '',
+                                                      autofocus: false}
+                          %label.mdl-textfield__label{for: :password}
+                            = t('password')
+
+                      .row.col-md-offset-1{id: ""}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                          %input.mdl-textfield__input{type: :password, id: :confirm_password, name: "user[password_confirmation]", for: :confirm_password, value: '',
+                                                      autofocus: false}
+                          %label.mdl-textfield__label{for: :confirm_password}
+                            = t('password_confirmation')
+
+
+                      .row{style: "height:20px;"}
+                      .row.col-md-offset-1{id: ""}
+                        .centered
+                          %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--colored.md-form-field-long-100p{ :type => "submit",
+                            class: "btn btn-success",
+                            id: "btnCreateApp", value: "Change my password" }
+                      .row{style: "height:30px;"}
+
+      .col-md-4
+
+:css
+  a.mdl-mega-footer__heading{
+    color: #448AFF !important;
+    padding-right: 0 !important;
+  }
+
+
+
+-#.top-space
+-#  .container
+-#    .row
+-#      .col-md-4
+-#      .col-md-4
+-#        %h2
+-#          =t('change_password')
+-#        %div.form-horizontal
+-#          = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+-#            = devise_error_messages!
+-#            = f.hidden_field :reset_password_token
+-#            %div.form-group.form-group-lg
+-#              .right-inner-addon
+-#                %i.fa.fa-lock.fa-lg
+-#                = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control", placeholder: t('password')
+-#            %div.form-group.form-group-lg
+-#              .right-inner-addon
+-#                %i.fa.fa-lock.fa-lg
+-#                %i.icon-stack.fa.fa-check
+-#              = f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: t('change_password')
+-#            %div.form-group.form-group-lg
+-#              .actions
+-#                = f.submit "Change my password", class: "form-control btn btn-warning"
+-#      .col-md-4

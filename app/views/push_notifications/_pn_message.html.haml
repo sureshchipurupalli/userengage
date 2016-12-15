@@ -1,0 +1,51 @@
+- title = ''
+- body = ''
+- if @campaign.present?
+  - title = @campaign['title']
+  - body = @campaign['body']
+
+
+.col-md-11{style: 'height:100%'}
+  %form{url: push_notification_message_url, id: 'push_notification_message',
+        name: 'push_notification_message', :html => 'multipart: :true'}
+    %input{type: 'hidden', name: :temp_pn_group_id, id: :temp_pn_group_id, value: @temp_pn_group_id}
+    %input{type: 'hidden', name: :app_id, id: :app_id, value: @app.id}
+    .row.form-group.col-md-offset-1
+      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+        %input.mdl-textfield__input{type: :text, id: :title, name: :title, value: title}
+        %label.mdl-textfield__label{for: :title}
+          = t('push_notifications.title')
+    .row.form-group.col-md-offset-1
+      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+        %textarea.mdl-textfield__input{type: :text, rows: '5', id: :body, name: :body, value: body}
+          = body
+        %label.mdl-textfield__label{for: :body}
+          = t('push_notifications.body')
+    .row.form-group.col-md-offset-1.pull-right
+      %button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{title: 'copy to clipboard',
+        id: 'btnPostPNMessage', name: 'btnPostPNMessage',  :type => "submit"}
+        =t('push_notifications.index.select_users')
+        %i.material-icons
+          = 'arrow_forward'
+
+:javascript
+
+   $(document).ready(function(){
+    $('#push_notification_message').on('submit', submitMsgForm)
+  });
+
+  function submitMsgForm(e){
+    var actionurl = $(this).attr('url')
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);
+    $.ajax({
+      url: actionurl,
+      type: 'post',
+      dataType: 'script',
+      contentType: false,
+      processData: false,
+      cache: false,
+      data: formData,
+      success: ''
+    });
+  }

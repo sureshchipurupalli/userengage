@@ -1,0 +1,67 @@
+.top-space
+  .container
+    .row{style: "height:80px;"}
+    .row
+      .col-md-4
+      .col-md-4
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title{style: "background-color:#3F51B5"}
+            .mdl-card__title-text{style: "color:#ffffff"}
+              = "Log in"
+          .mdl-card__actions.mdl-card--border
+          %div
+            #create_app
+              .row
+                .col-md-11
+                  %div
+                    = form_for(resource, as: resource_name, url: session_path(resource_name), class: "form-inline") do |f|
+                      #error_explanation
+                        %ul
+                          - flash.each do |name, msg|
+                            %li
+                              %span{:id => "flash_#{name}" }
+                                = msg
+                      .row.col-md-offset-1{id: ""}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                          %input.mdl-textfield__input{type: :text, id: :email, name: "user[email]",
+                                                        for: :email, value: ''}
+                          %label.mdl-textfield__label{for: :email}
+                            = t('email')
+
+                      .row.col-md-offset-1{id: ""}
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                          %input.mdl-textfield__input{type: :password, id: :password, name: "user[password]",
+                                                       for: :password, value: ''}
+                          %label.mdl-textfield__label{for: :password}
+                            = t('password')
+                      - if devise_mapping.rememberable?
+                        .row.col-md-offset-1{id: ""}
+                          %label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect{for: "remember_me"}
+                            %input.mdl-checkbox__input{type: "checkbox", name: "user[remember_me]", id: "remember_me"}
+                            %span.mdl-checkbox__label
+                              = t('remember_me')
+
+                      .row{style: "height:20px;"}
+                      .row.col-md-offset-1{id: ""}
+                        .centered
+                          %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--colored.md-form-field-long-100p{ :type => "submit",
+                            class: "btn btn-success",
+                            id: "btnCreateApp", value: "Log in" }
+                      .row{style: "height:30px;"}
+                      .row.col-md-offset-1{id: ""}
+                        - if devise_mapping.rememberable?
+                          .pull-left
+                            - if devise_mapping.registerable? && controller_name != 'registrations'
+                              = link_to t('register'), new_registration_path(resource_name), class: "mdl-mega-footer__heading"
+                          .pull-right
+                            - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+                              = link_to "Forgot your password?", new_password_path(resource_name), class:  "mdl-mega-footer__heading"
+
+                      .row{style: "height:30px;"}
+      .col-md-4
+
+:css
+  a.mdl-mega-footer__heading{
+    color: #448AFF !important;
+    padding-right: 0 !important;
+  }

@@ -1,0 +1,33 @@
+.mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp{style: 'width: 100%;'}
+  .mdl-card__title
+    .mdl-card__title-text
+      = t(".notifications")
+  %div
+    -if group_notifications.present?
+      %table.mdl-data-table.mdl-js-data-table.mdl-data-table.crash-group-table{style: 'width: 100%;'}
+        %thead
+          %tr.md-table-header
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_groups.group_notifications.table.to')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_groups.group_notifications.table.status')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_groups.group_notifications.table.response')}"
+            %th.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_groups.group_notifications.table.sent_at')}"
+        - group_notifications.each do |notification|
+          %tr
+            %td.mdl-data-table__cell--non-numeric
+              ="#{notification.to}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{t('push_notification_groups.group_notifications.statuses.messages.pn_groups.'+notification.status.to_s)}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{notification.response_text}"
+            %td.mdl-data-table__cell--non-numeric
+              = "#{notification.sent_at}"
+    -else
+      .empty-content
+        ="#{t('push_notification_groups.group_notifications.no_group_notfications')}"
+
+-if group_notifications.present? && group_notifications.size > 0
+  = render 'shared/pagination', collection: group_notifications, entry_name: 'Notifications'

@@ -1,0 +1,127 @@
+.row
+  .col-md-2
+  .col-md-8
+    .mdl-shadow--2dp.background-cream
+      .mdl-card__title
+        .mdl-card__title-text
+          = t('.create_app')
+      .mdl-card__actions.mdl-card--border
+        #create_app
+          =form_for app, :html => {multipart: :true } do |f|
+            .row
+              .col-md-12
+                #apps_creation_errors
+            .row
+              .col-md-6
+                .form-horizontal
+                  %div
+                    .row.col-md-offset-1{id: "app_name"}
+                      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        %input.mdl-textfield__input{type: :text, id: :name, name: :name, for: :name, value: app.name,
+                                                    autofocus: true}
+                        %label.mdl-textfield__label{for: :name}
+                          = t('name')
+                    .row.col-md-offset-1{id: "app_desc"}
+
+                      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                        %textarea.mdl-textfield__input{type: :text, rows: '5', id: :description, name: :description,
+                                                       for: :description,  value: app.description}
+                          = app.description
+                        %label.mdl-textfield__label{for: :description}
+                          = t('desc')
+              .col-md-6
+                .form-horizontal
+                  .row
+                    .centered
+
+                      .mdl-button.mdl-button--primary.mdl-button--icon.mdl-button--file.mdl-button--fab.mdl-button--mini-fab
+
+                        %i.material-icons
+
+                          = 'file_upload'
+
+                        %input{type: :file, id: :app_icon, name: :app_icon, onchange: "readURL(this);"}
+                  .row.empty_row_20
+
+                  .row.col-md-offset-1{id: "app_icon"}
+                    %img{id: "img_prev", src: app.app_icon_url.nil? ? "/images/app_default.png": app.app_icon_url,
+                         alt: "Imag Preview", style: "width:342px; height: 182px;" }
+            .row.empty_row_20
+            .row
+              .col-md-2
+              .col-md-8.centered
+                .row{id: "app_submit"}
+
+                  .pull-left
+
+                    %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{ :type => "submit",
+                            class: "btn btn-success",
+                            id: "btnCreateApp", value: t("views.save") }
+
+                  .pull-right
+
+                    %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                            id: "btnCancelApp", value: t('cancel') }
+            .row.empty_row_30
+
+            %input{type: :hidden, value: @app.id, name: 'app_id', id: 'app_id'}
+
+
+.page-content
+
+
+:javascript
+
+   $(document).ready(function(){
+    $('.new_app').on('submit', submitAppForm)
+    $('.edit_app').on('submit', submitAppForm)
+    $('#btnCancelApp').on('click',function(){
+      var root_url =  "#{root_path}";
+      window.location = root_url;
+    });
+  });
+
+  function submitAppForm(e){
+
+    var actionurl = e.currentTarget.action;
+    e.preventDefault();
+    var formData = new FormData($(this)[0]);
+    $.ajax({
+      url: actionurl,
+      type: 'post',
+      dataType: 'script',
+      contentType: false,
+      processData: false,
+      cache: false,
+      data: formData,
+      success: ''
+    });
+  }
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#img_prev')
+          .attr('src', e.target.result)
+          .width(342)
+          .height(182);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
+
+
+:css
+  .mdl-button--file input {
+    opacity: 0;
+  }
+
+
+
+
+
+
+

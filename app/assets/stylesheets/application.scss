@@ -1,0 +1,289 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "jquery-ui";
+@import "bootstrap";
+@import "variables";
+@import "sub/datepicker";
+@import "sub/bootstrap-material-datetimepicker";
+
+@font-face {
+    font-family: 'robotoregular';
+    src:font-url('roboto-regular/roboto-regular.eot?#iefix') format('embedded-opentype'),
+    font-url('roboto-regular/roboto-regular.svg#robotoregular') format('svg'),
+    font-url('roboto-regular/roboto-regular.woff') format('woff'),
+    font-url('roboto-regular/roboto-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: 'Exo-Medium';
+  src:font-url('exo-medium/Exo-Medium.eot?#iefix') format('embedded-opentype'),
+  font-url('exo-medium/Exo-Medium.svg#Exo-Medium') format('svg'),
+  font-url('exo-medium/Exo-Medium.woff') format('woff'),
+  font-url('exo-medium/Exo-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//body { padding-top: 70px; }
+body{
+  background-color: $cream;
+  background-image: url("/images/bg_pattern.png");
+  background-repeat: repeat;
+}
+
+.background-cream
+{
+  background-color: $cream !important;
+}
+
+.app_title {
+  font-family: Exo-Medium;
+  color: #000000;
+  font-size:25px;
+
+}
+
+.app_caption {
+  font-family: Robotoregular;
+  color: #000000;
+  font-size:15px;
+}
+
+
+#tab_heading ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: left;
+}
+
+.icon-7x{
+    font-size: 7em !important;
+}
+
+.thin_margin
+{
+  margin-top:10px
+}
+
+#error_explanation {
+  .alert-message.error{
+  };
+  .block-message{
+  };
+  //margin-left:150px;\
+  text-shadow:none;
+  h2 {
+    font-size:13px;
+    line-height:18px;
+    font-weight:bold;
+    margin:0 0 6px 0;
+  }
+  h2, li {
+    color:black;
+  }
+  a {
+    .alert-message.close{
+    }
+  }
+}
+
+#user_profile_icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50% !important;
+}
+
+#user_profile_icon_medium {
+  height: 80px;
+  width: 80px;
+  border-radius: 50% !important;
+}
+
+.main-container{
+  display: table;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+.main-container::after{
+  clear: both;
+}
+
+.page-title-container{
+  margin: 0 auto 0 250px;
+
+}
+
+.main-content{
+  margin: 0 auto 0 250px;
+  padding: 0;
+}
+
+.page-title {
+  color: #ffffff;
+  padding: 5px 10px;
+  .name {
+    font-size: 24px;
+  }
+  .description {
+    font-size: 12px;
+  }
+}
+
+.profile-name
+{
+  font-size: 12px;
+}
+
+.pagination a, .pagination span.current, .pagination span.gap {
+  float: left;
+  padding: 0 14px;
+  line-height: 38px;
+  text-decoration: none;
+  //background-color: white;
+}
+
+.pagination {
+  .first{
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .prev {
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .page{
+    padding : 0;
+    float: none;
+    border: none;
+
+  }
+  .next{
+    padding : 0;
+    float: none;
+    border: none;
+    margin-top: 10px;
+  }
+  .last{
+    padding : 0;
+    float: none;
+    border: none;
+    margin-top: 10px;
+  }
+}
+
+
+.png-details-date{
+  margin-top: 18px !important;
+  margin-right: 20px !important;
+}
+
+.png-alert-cards {
+  min-height:60px !important;
+  color: #ffffff;
+}
+
+.png-alert-cards .title {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.png-alert-cards .icon {
+  font-size: 25px;
+  vertical-align: middle;
+}
+
+.png-alert-cards .description {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.dark-green {
+  background-color: $dark-green;
+}
+
+.green{
+  background-color: $green;
+}
+
+.dark-blue{
+  background-color: $dark-blue;
+}
+
+.blue{
+  background-color: $blue;
+}
+
+.dark-orange{
+  background-color: $dark-orange;
+}
+
+.orange{
+  background-color: $orange;
+}
+
+.dark-gray{
+  background-color: $dark-gray;
+}
+
+.gray {
+  background-color: $gray;
+}
+
+.md-form-field-long-100p {
+  width:100% !important;
+}
+
+div.centered
+{
+  text-align: center;
+}
+
+div.centered table
+{
+  margin: 0 auto;
+  text-align: left;
+  width: 98%;
+}
+
+.md-table-header
+{
+  background-color: #3F51B5 !important;
+}
+
+
+.mdl-navigation__link
+{
+  font-size: 16px !important;
+
+}
+
+.empty_row_30{
+  height: 30px;
+}
+
+.empty_row_20{
+  height: 20px;
+}

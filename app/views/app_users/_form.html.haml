@@ -1,0 +1,60 @@
+- app_user = app_user
+.row
+  .mdl-shadow--2dp{style: "width:100%"}
+    .col-md-12
+      .col-md-4
+      .col-md-8
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title
+            .mdl-card__title-text
+              = "Add User to App"
+          .mdl-card__actions.mdl-card--border
+          #app_user_creation_errors
+            %div
+              %div
+                .row
+                  .col-md-11
+                    %div.form-horizontal
+                      = form_tag app_users_url(app_id: @app_id), :method => :post, :remote => true, :id =>'create_new_app_user' do
+                        %div
+                        .row
+                          #create_app_user
+                        .row.col-md-offset-1{id: "app_name"}
+                          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                            %input.mdl-textfield__input{type: :text, id: "email", name: "email", for: :email,
+                                                        autofocus: true}
+                            %label.mdl-textfield__label{for: :email}
+                              = "email-id"
+                        .row.col-md-offset-1{id: "app_submit"}
+                          .pull-left
+                            %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{ :type => "submit",
+                              class: "btn btn-success", value: t('views.submit'), id: "btnCreateAppUser" }
+                          .pull-right
+                            %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                              id: "btnCancelAppUser", name: 'btnCancelAppUser', value: t('cancel') }
+                        .empty_row_20
+:javascript
+  $(document).ready(function(){
+    $('#create_app_user').on('submit', submitAppUserForm)
+    $('#btnCancelAppUser').on('click',function(){
+      var root_url =  "#{app_users_path + '?app_id=' + @app_id.to_s}";
+      window.location = root_url;
+    });
+  });
+
+  function submitAppUserForm(e){
+    e.preventDefault();
+    var actionurl = e.currentTarget.action;
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+      url: actionurl,
+      type: 'POST',
+      dataType: 'script',
+      contentType: false,
+      processData: false,
+      cache: false,
+      data: formData,
+      success: ''
+    });
+  }

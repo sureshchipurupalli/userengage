@@ -1,0 +1,8 @@
+hidePaginationLoader($('#send_push_notification_filters_container #platform_filter_container'));
+$('#group_filter_container .pagination-data').html('');
+<% if @pn_users.size > 0 %>
+    $('#send_push_notification_filters_container #group_filter_container .pagination-data').html('<%= j render "push_notifications/group_filters", :pn_users => @pn_users, :pn_user_groups => @pn_user_groups, :product => @product %>').fadeIn(400);
+<% end %>
+
+$("#send_push_notification_filters_container #counter_filter_container").html('<%= j render "push_notifications/user_count", :pn_users => @pn_users %>')
+

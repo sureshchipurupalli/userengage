@@ -1,0 +1,8 @@
+-content_for :page_title do
+  .page-title
+    .col-md-7.page-name
+      .name
+        ="#{name if name.present?}"
+      .description
+        ="#{description if description.present?}"
+    .col-md-5.page-links

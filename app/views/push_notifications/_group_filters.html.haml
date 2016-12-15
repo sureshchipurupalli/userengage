@@ -1,0 +1,131 @@
+.fluid-container.grouping-filters
+  %input{:type => "hidden", :value => 1, :name => "group_filter_type", :id => 'group_filter_type'}
+
+  %p
+    =t('push_notifications.grouping')
+  %ul.nav.nav-tabs{:role => :tablist}
+    %li.active{:role => :presentation}
+      %a{:href => "#group_filter_every_one", :aria => {:controls => :group_filter_every_one}, :role => :tab ,:data => {:toggle => :tab, :val => 1}}
+        ="#{t('push_notifications.every_one')}"
+    %li{:role => :presentation}
+      %a{:href => "#group_filter_specific_users", :aria => {:controls => :group_filter_specific_users}, :role => :tab, :data => {:toggle => :tab, :val => 2}}
+        ="#{t('push_notifications.specific_users')}"
+    %li{:role => :presentation}
+      %a{:href => "#group_filter_groups", :aria => {:controls => :group_filter_groups}, :role => :tab, :data => {:toggle => :tab, :val => 3}}
+        ="#{t('push_notifications.groups')}"
+  %div.tab-content{:id => :group_filter_tab_content}
+    %div.tab-pane.fade.in.active{:role => :tabpanel, :id => :group_filter_every_one}
+      .col-md-12
+        .status-block-title
+          ="Selected #{pn_users.present? ? "#{pn_users.size} " : 0 } Users"
+    %div.fade.tab-pane{:role => :tabpanel, :id => :group_filter_specific_users}
+      %input{:type => "hidden", :value => product.id, :name => "product_id"}
+      .row
+        .col-md-12
+          .col-md-3
+            %select.form-control{:name => "group_filter_by_key"}
+              -get_single_user_group_filters.each do |user_group|
+                %option{:value => "#{user_group['value']}"}
+                  ="#{user_group['key']}"
+          .col-md-7
+            %input.form-control{:type => "text", :name => "group_filter_by_value"}
+          .col-md-2
+            %a.btn.btn-primary{:id => 'add_pn_user', 'data-href' => add_pn_user_push_notifications_path}
+              %i.fa.fa-paper-plane
+                =t('views.add')
+      .row
+        #filter_pn_users.pagination_container.col-md-12
+          .pagination-loader
+            %i.fa.fa-spinner.fa-spin
+          .pagination-data
+            =render "push_notifications/pn_users", :filter_pn_users => @filter_pn_users
+    %div.fade.tab-pane{:role => :tabpanel, :id => :group_filter_groups}
+      .col-md-12
+        - if pn_user_groups.present?
+          .col-md-8
+            %select{:name => "group_filter_groups[]", :id => :custom_users_select, :multiple => :multiple, :placeholder => "Choose Groups"}
+              - pn_user_groups.each do |group|
+                %option{:value => group.group_name}="#{group.group_name}"
+        -else
+          .empty-content
+            =t('push_notifications.no_groups')
+  .row
+    %p
+      =t('push_notifications.message')
+  .row.form-group.col-md-offset-2
+    %label.col-md-1.control-label
+      =t('push_notifications.title')
+    %div.col-md-7
+      %input.form-control{:type => "text", :name => "title"}
+  .row.form-group.col-md-offset-2
+    %label.col-md-1.control-label
+      =t('push_notifications.body')
+    %div.col-md-7
+      %textarea.form-control{:rows => "5", :name => "body"}
+  .row.col-md-9
+    %button.btn.btn-primary.pull-right
+      %i.fa.fa-paper-plane
+      =t('views.send')
+:scss
+  .selectize-control {
+    top:10px;
+    margin-top: -10px;
+  }
+  .selectize-input {
+     padding: 4.4px 9px;
+
+  }
+  .selectize-dropdown, .selectize-input, .selectize-input input{
+    font-size: 14px;
+  }
+  .send-button{
+    margin: 15px 30px 0 0;
+
+  }
+  .grouping-filters {
+      p{
+        text-align: center;
+        padding: 10px;
+        margin-top: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        color:green;
+      }
+      .tab-content .tab-pane{
+        padding: 15px;
+      }
+  }
+
+:javascript
+
+  $(function(){
+
+    $("#group_filter_specific_users #add_pn_user").off('click').on('click', function(){
+      var params = $(this).closest('#group_filter_specific_users').find("input, select").serialize()+"&"+$("#platform_filter_container .platforms input").serialize();
+      showPaginationLoader($('#group_filter_specific_users #filter_pn_users'));
+      $.post($(this).data('href'), params, function(){}, 'script');
+    });
+
+    // tab toggle code from which tab panel
+    $('.grouping-filters a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+        $(".grouping-filters #group_filter_type").val($(this).data("val"));
+    });
+
+    if(#{pn_user_groups.present?}){
+
+      // This may throws error if groups not avaiable, so this place end of the code
+      var group_selectize =$('#custom_users_select').selectize({
+        create: false,
+        plugins: ['remove_button'],
+        sortField: {
+            field: 'text',
+            direction: 'asc'
+        },dropdownParent: 'body'
+
+      });
+    }
+
+  });
+
+
+

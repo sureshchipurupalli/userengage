@@ -1,0 +1,5 @@
+$("#notification-groups-container").html("<%= j render "push_notification_groups/index",
+                                                pn_groups: @push_notification_groups,
+                                                app: @app, platform: @platform,
+                                                page: @page, per_page: @per_page
+                                          %>");

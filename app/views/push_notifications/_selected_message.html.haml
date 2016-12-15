@@ -1,0 +1,35 @@
+- title = title
+- body = body
+- user_count = user_count
+.mdl-shadow--2dp.background-cream{style: 'width: 100%;'}
+  .mdl-card__title
+    .mdl-card__title-text
+      %h4
+        .pull-left
+          = t('push_notifications.campaign_details')
+  .mdl-card__actions.mdl-card--border
+    .mdl-card__supporting-text
+      %div
+        %h4
+          = "Segmented Users  "
+        .mdl-card__actions.mdl-card--border
+          %div
+            = user_count.to_s
+      %div
+        %h4
+          = "Message"
+        .mdl-card__actions.mdl-card--border
+          %div
+            = title
+          %div
+            = body
+      %div
+        %h4
+          = "Filters"
+        .mdl-card__actions.mdl-card--border
+          %div
+            = render 'selected_filtered_values', filter_name: 'Platforms', collection: platform_filters
+          %div
+            = render 'selected_filtered_values', filter_name: 'Versions', collection: version_filters
+          %div
+            = render 'selected_filtered_values', filter_name: 'Models', collection: model_filters

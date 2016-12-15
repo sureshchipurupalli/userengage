@@ -1,0 +1,22 @@
+- platforms = platforms
+- platform_filters = platform_filters
+
+- if !platforms.nil? && platforms.size > 0
+  .mdl-shadow--2dp{style:'width: 98%;'}
+    .png-alert-cards
+      .title.dark-green
+        %i.material-icons.icon
+          = 'filter'
+        = t('.platform')
+      .description.green{style: 'padding:20px; height:100%;'}
+        - platforms.each do |platform|
+          - is_checked = platform_filters.include? platform.id
+          %label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect{for: 'platform_'+platform.id.to_s}
+            %span.mdl-switch__label
+              = platform.name
+            %input.mdl-switch__input.platform-filters{type: 'checkbox', name:platform.id,
+                                                checked: is_checked, id: 'platform_'+platform.id.to_s}
+          %br
+          %br
+- else
+  = t('.no_platforms_found')

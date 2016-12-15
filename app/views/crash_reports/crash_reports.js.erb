@@ -1,0 +1,6 @@
+<% if @include_filter_stats.present? %>
+    $('#crash_list .tab-filters').html('<%= j render "crash_reports/crash_report_filters", app_versions: @app_versions, os_versions: @os_versions %>');
+<% end %>
+$('.pagination_container#crash_report_container .pagination-data').html('<%= j render "crash_reports/crash_reports", crash_group_id: @crash_group_id, crashes: @crash_reports, product: @product, filters: @filters, page: @page, per_page: @per_page %>').fadeIn(400);
+hidePaginationLoader($('.pagination_container#crash_report_container'));
+$("time").timeago();

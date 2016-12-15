@@ -1,0 +1,60 @@
+- org_user = org_user
+.row
+  .mdl-shadow--2dp{style: "width:100%"}
+    .col-md-12
+      .col-md-4
+      .col-md-8
+        .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp
+          .mdl-card__title
+            .mdl-card__title-text
+              = t('add_org_user')
+          .mdl-card__actions.mdl-card--border
+          #org_user_creation_errors
+            %div
+              %div
+                .row
+                  .col-md-11
+                    %div.form-horizontal
+                      = form_tag organisation_users_url(org_id: @org_id), :method => :post, :remote => true, :id =>'create_new_org_user' do
+                        %div
+                        .row
+                          #create_org_user
+                        .row.col-md-offset-1{id: "org_name"}
+                          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                            %input.mdl-textfield__input{type: :text, id: "email", name: "email", for: :email,
+                                                        autofocus: true}
+                            %label.mdl-textfield__label{for: :email}
+                              = t('email')
+                        .row.col-md-offset-1{id: "org_submit"}
+                          .pull-left
+                            %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--accent{ :type => "submit",
+                              class: "btn btn-success", value: t('views.submit'), id: "btnCreateOrgUser" }
+                          .pull-right
+                            %input.button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect{ :type => "button",
+                              id: "btnCancelOrgUser", name: 'btnCancelOrgUser', value: t('cancel') }
+                        .empty_row_20
+:javascript
+  $(document).ready(function(){
+    $('#create_org_user').on('submit', submitOrgUserForm)
+    $('#btnCancelOrgUser').on('click',function(){
+      var root_url =  "#{organisation_users_path}";
+      window.location = root_url;
+    });
+  });
+
+  function submitOrgUserForm(e){
+    e.preventDefault();
+    var actionurl = e.currentTarget.action;
+    var formData = new FormData($(this)[0]);
+
+    $.ajax({
+      url: actionurl,
+      type: 'POST',
+      dataType: 'script',
+      contentType: false,
+      processData: false,
+      cache: false,
+      data: formData,
+      success: ''
+    });
+  }

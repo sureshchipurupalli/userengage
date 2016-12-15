@@ -1,0 +1,504 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+
+  edit_profile: Edit Profile
+  name: Name
+  desc: Description
+  app_key: App Key
+  short_name: Short Name
+  my_account: My Account
+  user_profile: User Profile
+  add_new_app: New Application
+  add_new_app_desc: Application detatils
+  app_setting: Application Settings
+  app_description: Configure your application settings here
+  pn_setting: Push Notification Settings
+  pn_description: Configure your Push Notification settings here
+  change_password_title: Change password
+  client_key: Client Key
+  copy_to_clipboard: Copy to clipboard
+  api_key: API Key
+  app_key: APP Key
+  package: Package
+  android_sdk_setup: Android SDK Setup
+  gcm_api_key_title:    Google Cloud Messaging (GCM) API key
+  api_cerficate_title: Apple Push Notification Service (APNs) Certificate
+  pn_certificate_key: Key
+  pn_certficate: Certificate
+  current_password: Existing Password
+  new_password: New Password
+  confirm_password: Confirm Password
+  change_password_description: Change your existing password
+  update_org: Update Organisation Profile
+  update_org_desc: Update organisation information
+  manage_organisations: Manage Organisations
+  log_out: Sign out
+  select_org: Select Organisation
+  create_org: Create Organisation
+  create_app: Create Application
+  add_org_user: Add user to organisation
+  create_fb_category: Create Feedback Category
+  create_segment: Save Segments
+  submit: Submit
+  cancel: Cancel
+  close: Close
+  app_name: Userengage
+  app_title: Drive more user engagement
+  sign_up_title: Create your Account
+  sign_up: Register
+  logout: logout
+  registration_text1: Thank you for Registering!
+  registration_text2: A confirmation mail has been sent to your email address.
+  registration_text3: Please click on verification link to verfify your registered email address.
+  confirmation_instructions: Confirmation Instructions
+  congrats: Congrats!
+  news_letter_title: Join Our NewsLetter
+  news_letter_text: Signup for our newsletter and get updates, and special news  in your inbox every week.
+  save_and_continue: Save and Continue
+  no_thanks: No thanks
+  ios_pn_certificate: IOS_PUSH_KEY
+  ios_pn_cert_key: IOS_CERTIFICATE_KEY
+  android_pn_key: ANDROID_PUSH_KEY
+  android_pn_package_name: ANDROID_PACKAGE_NAME
+  android_app_key: APP_KEY
+  ios_app_key: APP_KEY
+  add_organisation: Add organisation
+  create_app: create new app
+  devise:
+    registrations:
+      edit:
+        page_title: User Profile
+        page_description: User Profile Information
+        update_user: Update User Profile
+  organisations:
+    form:
+      page_title: Organisation Settings
+      page_description: Create or update organisation details
+      create_org: Org Settings
+    edit_form:
+      page_title: Organisation Settings
+      page_description: Create or update organisation details
+      create_org: Org Settings
+  organisation_users:
+    index:
+      page_title: Organisational Users
+      page_description: Users belong to organisation
+      org_user: Organisational Users
+    new:
+      page_title: Add Organisation Users
+      page_description: Add user to organisation
+      add_org_user: Add Organisational User
+  apps:
+    new:
+      page_title: Application
+      page_description: create new Application
+    push_notification_settings:
+      page_title: Application settings
+      page_description: Configure App and Notification Settings
+    form:
+      page_title: Application Settings
+      page_description: Create or update application details
+      create_app: App Settings
+  home:
+    change_password:
+      page_title: Change Password
+      page_description: change your password
+      change_password: Change Password
+    apps:
+      page_title: Apps
+      page_description: Organisational apps
+    app:
+      create_campaign: Create campaign
+      campaigns: Campaigns
+      pn_users: MAU
+      crash_reports: Crash reports
+      app_settings: Settings
+      feedback: Feedback
+
+  push_notification_users:
+    index:
+      page_title: Push Notification Users
+      page_description: Push Notification Users captured at clients
+      no_notifications: No Push Notifications found
+      no_notification_users: No Push Notification Users found
+      table:
+        notifications:
+          created_at: Created at
+          sent_at: Sent at
+          response: Response
+          response_status: Response Status
+          platform: Platform
+          retry_count: Retry Count
+          target_user: To
+        users:
+          select: Select
+          user_uniq_key: User Uniq Key
+          device_notification: Device Notification Id
+          reference: Reference Id
+          device: Device Id
+          mobile: Mobile Model
+          os_version: OS version
+          app_version: APP Version
+          platform_name: Platform Name
+
+  push_notification_groups:
+    index:
+      page_title: Campaigns
+      page_description: Campaign details
+      no_notification_groups: No campaigns found
+      table:
+        groups:
+          date: Date
+          edit: Edit
+          delete: Delete
+          title: Title
+          body: Body
+          scheduled_at: Scheduled at
+          processed_status: Delivery Status
+          sent: Sent
+          total: Total
+          failed: Failed
+          pending: Pending
+    group_notifications:
+      notifications: Notifications
+      notification_details: Notification details
+      no_group_notfications: No Group Push notifications found.
+      table:
+        to: To
+        status: Status
+        sent_at: Sent at
+        response: Response
+      statuses:
+        messages:
+          pn_groups:
+            '0': Pending
+            '1': Sent
+            '2': Failed
+    edit:
+      page_title: Campaign details
+      page_description: campaign details
+  push_notifications:
+    platforms: Platforms
+    groups: Groups
+    select_platforms: Choose Platforms
+    select_groups: Choose Groups
+    specific_users: Specific Users
+    every_one: Every one
+    grouping: Grouping
+    platform: Platform
+    no_groups: No groups found
+    message: Message
+    campaign: Campaign
+    campaign_details: Campaign Details
+    preview: Preview
+    title: Title
+    body: Body
+    campaign_name: Campaign Name
+    campaign_description: Campaign Description
+    campaign_success:
+      page_title: Campaign
+      page_description: Campaign created successfully
+    schedule_campaign:
+      select_date: Select Date (MM-DD-YYYY)
+      select_time: Select Time (HH-MM)
+      schedule: Schedule
+    save_and_schedule:
+      page_title: Save and Schedule
+      page_description: Save and schedule a campaign
+    preview_and_schedule:
+      page_title: Schedule
+      page_description: Schedule the campaign for delivery
+    index:
+      page_title: Create campaign
+      page_description: create a campaign to send notifications
+      created_at: Created at
+      sent_at: Sent at
+      response: Response
+      response_status: Response Status
+      platform: Platform
+      retry_count: Retry Count
+      target_user: To
+      select_users: Select Users
+      create_content: Create
+    create_campaign_content:
+      page_title: Campaign content
+      page_description: create campaign content
+    select_pn_users:
+      page_title: Push Notification Users
+      page_description: Select users to send push notifications
+    filter_app_versions:
+      versions: Versions
+      no_versions_found: No versions found
+    filter_devices:
+      device_models: Device Models
+      no_devices_found: No devices found
+    filter_platforms:
+      platforms: Platforms
+      no_platforms_found: No platforms found
+    selected_filter:
+      campaign_details: Campaign details
+  shared:
+    popup_modal:
+      close: Close
+      create: Create
+      cancel: Cancel
+    dialog_modal:
+      close: Close
+      cancel: Cancel
+      confirm: Confirm
+      ok: OK
+      yes: Yes
+  crash_reports:
+    index:
+      page_title: Crash Reports
+      page_description: Crash reports captured at clients
+      no_crashes: No crash reports found
+      total_crashes:
+      table:
+        first_occurred: First
+        last_occurred: Recent
+        exception: Exception
+        total_crashes: Total
+        total_users: Users
+        os_versions: OS Versions
+        app_versions: App Versions
+    show:
+      page_title: Crash Details
+      first_occurred: First Occurred
+      last_occurred: Last Occurred
+      total_crashes: Crashes
+      total_users: Users
+      os_versions: OS Versions
+      app_versions: App Versions
+      day_wise_crashes: Last 7 Days
+      stack_trace: Recent Crash Stack Trace
+      thread_details: Thread Details
+      crash_list: Crash List
+    crash_reports:
+      page_title: Crash Reports
+      page_description: Crash reports captured at clients
+      no_crashes: No crash reports found
+      total_crashes:
+      table:
+        report_at: Reported
+        version: Version
+        os_version: OS
+        crashed_at: Crashed On
+        device: Device
+  views:
+    select_role: Select Role
+    add: Add
+    save: Save
+    update: Update
+    company_name: Company Name
+    api_key: API Key
+    client_key: Client Key
+    keys: Keys
+    admin: admin
+    settings: Settings
+    send: Send
+    previous: Previous
+    next: Next
+    notifications: Notifications
+    copy: Copy
+    android: Android
+    ios: iOS
+    status: Status
+    certificate: Certificate
+    company_name: Company Name
+    product_name: Project Name
+    submit: Submit
+    pagination:
+      previous: "&lt; Previous"
+      next: "Next &gt;"
+      truncate: "..."
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No %{entry_name} found"
+          one: "Displaying <b>1</b> %{entry_name}"
+          other: "Displaying <b>all %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"
+  mailer:
+    app_user_message:
+      subject: You have been invited to join the %{app_name} team!
+    app_user_invitation:
+      subject: You have been invited to join the %{app_name} team!
+    org_user_message:
+      subject: You have been invited to join the %{org_name} team!
+    org_user_invitation:
+      subject: You have been invited to join the %{org_name} team!
+
+  errors:
+    messages:
+      carrierwave_processing_error: failed to be processed
+      carrierwave_integrity_error: is not an allowed file type
+      invalid_apns_cert_content: Please select valid certificate.
+      unauthorized_access: Unauthorized access.
+      unauthorized_user: Unauthorized user.
+      invalid_api_key: Invalid API KEY.
+      invalid_client_id: Invalid Client Id
+      auth_token_blank: Auth token cannot be empty.
+      unauthorized_access: Unauthorized access.
+      auth_token_expires: Auth token has expired.
+      invalid_auth_token: Invalid Auth token.
+      invalid_app_key: Invalid APP Key.
+      app_does_not_exist: App does not exist.
+      invalid_api_uniq_key: Invalid unique key.
+      app_settings_not_found: App Settings not found for this app
+      user_not_found: User not found.
+      invitation_already_sent: This User has been already invited.
+      invalid_server_key: Please enter a valid server key.
+      invalid_name: Please enter a valid name.
+      invalid_email: Please enter a valid email.
+      invalid_description: Please enter a valid description.
+      invalid_name_space: Please enter a valid name space.
+      app_name_exist: App name exists. Please enter a different app name.
+      user_already_assigned_org: User already assigned to this organisation.
+      user_already_assigned_app: User already assigned to this application.
+      select_platform: Please select atleast one platform.
+      invalid_apns_cert_content: Please select valid certificate data.
+      invalid_product_key: Please enter a valid product key.
+      invalid_app_key: Please enter a valid app key.
+      invalid_name: Please enter a valid name.
+      invalid_product: Please enter a valid project.
+      invalid_role: Please select a role.
+      access_granted: Access to this App is already granted to this user.
+      invalid_platform: Please check atleast one platform.
+      no_user_found: No Users found.
+      invalid_title: Please enter a valid title.
+      invalid_body: Please enter a valid body.
+      invalid_notification_settings: Please provide valid push notification settings for this app.
+      invalid_payload_size: Notification content limit excceded. Please try to reduce notification content.
+      invalid_api_key: Please enter a valid api key.
+      invalid_push_notification_id: Please enter a valid push notification token.
+      invalid_platform_name: Please enter a valid platform name.
+      invalid_os_version: Please enter a valid os version.
+      invalid_notification_id: Please enter a valid notification id.
+      invalid_notification_id_and_user_unique_id: Please enter a valid notification id or user_unique_id.
+      user_not_found: User not found.
+      invalid_api_uniq_key: Invalid api key or user uniq id.
+      body_field_blank: Body field cannot be blank.
+      invalid_user_unique_id: Please enter a valid user unique id.
+      app_not_found: App not found.
+      device_details_required: Device details are required.
+      app_details_required: App details are required.
+      new_password_blank: New password cannot be blank
+      confim_password_blank: Confirm password cannot be blank
+      existing_password_blank: Existing password cannot be blank
+      new_confirm_password_mismatch: New password does not match with confirm password
+      incorrect_current_password: Incorrect password
+      feedback_category_required: Feedback category is required
+      invalid_feedback_category: Invalid feedback category
+      content_required: Content is required
+      latitude_longitude: Latitude and Longitude are required
+      user_unique_key_user_id_required: User unique key or app user id is requried.
+      invalid_user_unique_key_user_id: Invalid User unique key or app user id.
+      category_name_required: Category name is required
+      category_name_exists: Category name already
+      title_required: Title cannot be blank
+      body_required: Body cannot be blank
+
+    crash_report:
+      messages:
+        crash_details_required: Crash details are required
+        device_details_required: Device details are required
+        app_details_required: App details are required
+        invalid_package_name: Invalid app package name
+    app:
+      messages:
+        app_not_found: App not found.
+        device_details_required: Device details are required.
+        app_details_required: App details are required.
+    campaigns:
+      messages:
+        name_not_found: Enter the campaign name
+  feedback_categories:
+    index:
+      page_title: Feedback Category
+      page_description: Manage feedback categories
+      delete: Delete
+      name: Name
+      description: Description
+    new:
+      page_title: Feedback category
+      page_description: Add new feedback category
+      create_feedback_category: Create Feedback Category
+  feedbacks:
+    feedback_details:
+      category: Category
+      received_at: Received at
+      sent_by: Sent by
+      app_version_code: App Version Code
+      app_version_name: App Version Name
+      os_version: OS Version
+      model: Model
+      content: Content
+      responses: Responses
+    replies:
+      no_replies_found: Not yet responded
+    details:
+        details: Feedback details
+        page_title: Feedback
+        page_description: Feedback recieved from the user.
+    reply:
+      reply: Feedback reply
+      page_title: Reply
+      page_description: Reply to user feedback
+    index:
+      page_title: Feedback
+      page_description: Feedbacks received from app users
+      id: ID
+      category: Feedback Category
+      content: Content
+      user_uniq_key: User unique key
+      reference: Reference
+      created_at: Received at
+      reply_to: Reply to
+      reply_status: Status
+      view_details: View details
+      replied: Replied
+      reply: Reply
+  messages:
+    confirm:
+      title: Confim
+      product_api_key_content: Do you want to change product api key.
+      remove_group_user_content: Do you want to remove group user.
+      delete_ios_certificate_content: Do you want to remove Certificate.
+
+    dialogs:
+      ok: OK
+      go: GO
+      title:
+        error: Error
+        confirm: Confirm
+        success: Success
+
+    device_push_notifications:
+      messages:
+      dialogs:
+        grouping_title: Success
+        grouping_content: "%{count} users found, notifications will send shortly."
+

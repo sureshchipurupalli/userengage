@@ -1,0 +1,9 @@
+- filter_name = filter_name
+- collection = collection
+- if collection.present? && collection.size > 0
+  %div
+    %h5
+      = filter_name
+  %div
+    - collection.each_with_index do |item, index|
+      = item + (index == collection.size - 1 ? '' : ',')

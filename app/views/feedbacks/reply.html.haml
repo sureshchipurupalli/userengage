@@ -1,0 +1,75 @@
+- feedback = @feedback
+- feedback_category_name = @feedback_category_name
+.page-content
+  .row
+    .col-md-12
+      = render 'shared/page_heading', page_title: t('.page_title'), page_description: t('.page_description')
+  .row.mdl-block-gap
+  .row
+    .col-md-12
+      .mdl-shadow--2dp{style: "width:100%"}
+        .row
+          .col-md-6
+            .mdl-card.mdl-shadow--2dp.through.mdl-shadow--2dp{style: "width:100%"}
+              .mdl-card__title
+                .mdl-card__title-text
+                  = t('.reply')
+              .mdl-card__actions.mdl-card--border
+              #rowalerts
+              %div
+                #feedback_reply
+                  = render "feedback_reply"
+          .col-md-6
+            .mdl-card{style: "width:100%;"}
+              .mdl-card__title
+                .mdl-card__title-text
+                  = t('.feedback')
+              .mdl-card__actions.mdl-card--border
+                .row.form-group.col-md-offset-1
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %input.mdl-textfield__input{type: :text, readonly: true, id: :feedback_category_name, name: :feedback_category_name, value: feedback_category_name}
+                    %label.mdl-textfield__label{for: :feedback_category_name}
+                      = t('.category')
+                .row.form-group.col-md-offset-1
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %input.mdl-textfield__input{type: :text, readonly: true, rows: '5', id: :content, name: :content, value: feedback.content}
+                    %label.mdl-textfield__label{for: :content}
+                      = t('.content')
+                .row.form-group.col-md-offset-1
+                  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.md-form-field-long-100p
+                    %input.mdl-textfield__input{type: :text, readonly: true, id: :feedback_created_at, name: :feedback_created_at, value: feedback.created_at}
+                    %label.mdl-textfield__label{for: :feedback_created_at}
+                      = t('.received_at')
+  .row.mdl-block-gap
+:javascript
+
+   $(document).ready(function(){
+    $('#post_feedback_reply').on('submit', submitMsgForm)
+    $('#btnCancelReply').on('click',function(){
+      var feedback_url =  "#{feedbacks_url+"?app_id=" + @app_id.to_s }";
+      window.location = feedback_url;
+    });
+  });
+
+  function submitMsgForm(e){
+    e.preventDefault();
+    if (confirm('Do you want to post the reply')) {
+      var actionurl = $(this).attr('url')
+      var formData = new FormData($(this)[0]);
+      $.ajax({
+        url: actionurl,
+        type: 'post',
+        dataType: 'script',
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: formData,
+        success: ''
+      });
+    }
+    else
+    {
+      return
+    }
+
+  }

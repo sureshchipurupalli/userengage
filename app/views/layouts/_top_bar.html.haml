@@ -1,0 +1,36 @@
+%a{href: root_path}
+  %span.mdl-layout-title.white-text
+    %img{src: "/images/userengage.png"}
+.mdl-layout-spacer
+  .nav.navbar-nav{id:'ddlorganisations', style: "margin-left:20px;"}
+    = render "layouts/organisation_dropdown", organisations: organisations
+%nav.mdl-navigation.mdl-layout--large-screen-only
+  %ul.nav.navbar-nav.navbar-right
+    %li.dropdown{"style"=>"margin-top:20px"}
+      %div.dropdown{ "data-toggle"=>"dropdown",
+                           "aria-haspopup"=>"true", "aria-expanded"=>"true"}
+        %span.profile-name
+          = user.name
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{"href"=>edit_user_registration_path}
+            = t('my_account')
+        %li
+          %a{"href"=>changepassword_path}
+            = t('change_password')
+        %li.divider{role: "separator"}
+        %li
+          %a{:href => destroy_user_session_path, :data => {:method => 'delete'},:tabindex => "-1"}
+            = t('log_out')
+    %li{"style"=>"margin-top:-10px;margin-left:15px;"}
+      %a{"href"=>edit_user_registration_path}
+        - if  user.profile_pic_url.nil?
+          %image.img-circle{"id"=>"user_profile_icon", "width"=>"50px", "height"=>"50px",
+                       "src"=>"/images/emptyuser.png", "style" => "border-radius:50% !important;"}
+          %div{"style"=>"margin-top:-37px;margin-left:10px;"}
+            = user.initials
+        - else
+          %image.img-circle.img-responsive{"id"=>"user_profile_icon", "width"=>"50px", "height"=>"50px",
+                           "src"=>user.profile_pic_url(:thumb)}
+%input{"type"=>"hidden","id"=>"hdf_selected_org_id", "value"=>selected_org_id}

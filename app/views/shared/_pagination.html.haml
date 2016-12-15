@@ -1,0 +1,9 @@
+- entry_name = entry_name
+- collection = collection
+- if collection.present? && collection.size > 0
+  .mdl-block-gap-30.background-cream
+    .pagination-block
+      .entries{style: "padding: 10px 0 0 25px;"}
+        = page_entries_info collection, entry_name: entry_name
+      .pager{style: "margin-top:-20px;"}
+        = paginate collection

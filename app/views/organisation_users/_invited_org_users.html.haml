@@ -1,0 +1,25 @@
+- invited_org_users = invited_users
+
+#invited_org_users_status
+
+-if invited_org_users.present? && invited_org_users.size > 0
+  .centered
+    %table.mdl-data-table.mdl-js-data-table.mdl-data-table.mdl-shadow--2dp.crash-group-table
+      %thead
+        %tr.md-table-header
+          %th.mdl-data-table__cell--non-numeric
+            = t('email')
+          %th.mdl-data-table__cell--non-numeric
+            = t('invited_on')
+      - invited_org_users.each do |invited_user|
+        %tr
+          %td.mdl-data-table__cell--non-numeric
+            = invited_user.email
+          %td.mdl-data-table__cell--non-numeric
+            = invited_user.created_at
+- else
+  .empty
+    = "No more users left to register."
+
+- if invited_org_users.present? && invited_org_users.size > 0
+  = render 'shared/pagination', collection: invited_org_users, entry_name: 'Invited Organisation Users'

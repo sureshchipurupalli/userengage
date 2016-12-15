@@ -1,0 +1,34 @@
+<% invited_users = invited_users %>
+<div id="invited_app_users_status"></div>
+<% if invited_users.present? && invited_users.size > 0 %>
+    <div class="centered">
+      <table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp crash-group-table">
+        <thead>
+        <tr class="md-table-header">
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= t('email') %>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            <%= t('invited_on') %>
+          </th>
+        </tr>
+        </thead>
+        <% invited_users.each do |invited_user| %>
+            <tr>
+              <td class="mdl-data-table__cell--non-numeric">
+                <%= invited_user.email %>
+              </td>
+              <td class="mdl-data-table__cell--non-numeric">
+                <%= invited_user.created_at %>
+              </td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+<% end %>
+
+
+
+<% if invited_users.present? && invited_users.size > 0 %>
+    <%= render 'shared/pagination', collection: invited_users, entry_name: 'Invited App Users' %>
+<% end %>

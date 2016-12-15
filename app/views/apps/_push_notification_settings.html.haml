@@ -1,0 +1,47 @@
+- submitText = app.present? && app.name.present? ? 'Update' : 'Create'
+- if @app_settings.present? && @app_settings.size > 0
+  - commons = Commons::AppSettings.new
+  - android_app_key = commons.getAppSettingValue(@app_settings.where(platform_id:1, key: :app_key))
+  - android_push_key = commons.getAppSettingValue(@app_settings.where(platform_id:1, key: :ANDROID_PUSH_KEY))
+  - android_package_name = commons.getAppSettingValue(@app_settings.where(platform_id:1, key: :ANDROID_PACKAGE_NAME))
+  - ios_app_key = commons.getAppSettingValue(@app_settings.where(platform_id:2, key: :app_key))
+  - ios_push_key = commons.getAppSettingValue(@app_settings.where(platform_id:2, key: :IOS_PUSH_KEY))
+  - ios_certificate_key = commons.getAppSettingValue(@app_settings.where(platform_id:2, key: :IOS_CERTIFICATE_KEY))
+
+
+.mdl-tabs.mdl-js-tabs.mdl-js-ripple-effect
+  .mdl-tabs__tab-bar.background-cream
+    %a.mdl-tabs__tab.is-active{href: "#tabandroid", id:"android-tab", role: "tab", 'data-toggle' => "tab",
+        'aria-controls' => 'tabandroid'}
+      %i.fa.fa-android.fa-2x
+      %label
+        = 'Android'
+    %a.mdl-tabs__tab{href: "#tabios", id:"ios-tab", role: "tab", 'data-toggle' => "tab",
+          'aria-controls' => 'tabios'}
+      %i.fa.fa-apple.fa-2x
+      %label
+        = 'iOS'
+    %a.mdl-tabs__tab{href: "#tabappsettings", id:"app-settings-tab", role: "tab", 'data-toggle' => "tab",
+          'aria-controls' => 'tabappsettings'}
+      %i.fa.fa-apple.fa-2x
+      %label
+        = 'App Settings'
+  .mdl-tabs__panel.is-active{id: :tabandroid}
+    .col-md-12{style: 'margin-top:20px;'}
+      = render 'apps/android_pn_settings', android_app_key: android_app_key, platform_id: 1,
+                    android_push_key: android_push_key, package_name: android_package_name
+  .mdl-tabs__panel{id: :tabios}
+    .col-md-12{style: 'margin-top:20px;'}
+      = render 'apps/ios_pn_settings_html', ios_app_key: ios_app_key,
+                  platform_id: 2, ios_push_key: ios_push_key, ios_certificate_key: ios_certificate_key
+  .mdl-tabs__panel{id: "tabappsettings"}
+    .col-md-12{style: 'margin-top:20px;'}
+      = render 'apps/form',  app: @app
+
+
+:javascript
+  $('#pn_settings_tab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+
